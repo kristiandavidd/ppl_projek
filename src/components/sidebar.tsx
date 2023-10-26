@@ -21,7 +21,7 @@ export default function Sidebar({ data }: userProps) {
     const sidebarRoleData = (sidebarData as unknown as SidebarData)[role] || [];
 
     return (
-        <div className='flex-col items-center hidden h-screen p-10 mb-20 bg-blue-500 w-1/8 lg:mb-0 lg:flex'>
+        <div className='flex-col items-center hidden p-10 mb-20 bg-blue-500 w-1/8 lg:mb-0 lg:flex'>
             <UserCircle color="white" size={96} strokeWidth={1} />
             <div className='flex items-center justify-center px-2 py-2 mx-auto mb-2 mt-5 rounded-md w-[200px] items bg-blue-300'>
                 <p className='text-sm font-semibold text-center'>{name}</p>
@@ -29,8 +29,8 @@ export default function Sidebar({ data }: userProps) {
             <div className="mb-10">
                 <p className='text-sm text-center text-white'>{idNumber}</p>    
             </div>
-            <div className="">
-                <ul className="">
+            <div className="w-full">
+                <ul className="w-full flex flex-col justify-start">
                     {sidebarRoleData.map((data) => {
                         return <NavButton data={data} key={data.title} />;
                     })}

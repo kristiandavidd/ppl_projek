@@ -13,7 +13,7 @@ export default function NavButton(props: NavProps) {
     const router = useRouter();
     return (
         <li>
-            <button type="button" className="text-white flex p-2" onClick={() => router.push(data.link)}>
+            <button type="button" className="text-white flex items-center p-2 group-hover:text-white group-focus:text-blue-200" onClick={() => router.push(data.link)}>
                 <svg className="w-6 h-6 mb-1 text-blue-300 group-hover:text-white group-focus:text-blue-200 mr-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                     {data.svg}
                 </svg>
