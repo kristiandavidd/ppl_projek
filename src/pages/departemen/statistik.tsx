@@ -5,9 +5,9 @@ import {Bell} from 'tabler-icons-react'
 
 export default function statistik() {
   const userData = {
-    role: 'doswal',
-    name: 'Andi Kurnia',
-    idNumber: '199603032022041001',
+    role: 'departemen', 
+    name: 'Departemen Informatika',
+    idNumber: 'Fakultas Sains dan Matematika',
   };
   return (
     <EmptyLayout pageTitle="Statistik">
