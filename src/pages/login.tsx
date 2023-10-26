@@ -19,21 +19,23 @@ export default function Login() {
                 <div className="justify-center bg-white mb-64 shadow rounded-lg z-30 px-14 py-5 border-solid border-2">
                     <Typography variant="h2" className="mt-3 text-center">Login</Typography>
                     <form className="flex flex-col">
-                        <Typography variant="h8" className="mt-6">Email</Typography>
+                        <Typography variant="paragraph" className="mt-6">Email</Typography>
                         <Input
                             size="lg"
                             placeholder="Masukkan email"
                             className="h-10"
+                            crossOrigin=''
                             labelProps={{
                                 className: "before:content-none after:content-none",
                             }}
                         />
-                        <Typography variant="h8" className="mt-4">Password</Typography>
+                        <Typography variant="paragraph" className="mt-4">Password</Typography>
                         <Input
                             type="password"
                             size="lg"
                             placeholder="Masukkan password"
                             className="h-10"
+                            crossOrigin=''
                             labelProps={{
                                 className: "before:content-none after:content-none",
                             }}
