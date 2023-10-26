@@ -15,7 +15,6 @@ export default function Login() {
                     <form className="flex flex-col">
                         <Typography variant="paragraph" className="mt-6">Email</Typography>
                         <Input
-                            crossOrigin=""
                             size="lg"
                             placeholder="Masukkan email"
                             className="h-10 !border-t-blue-gray-200 focus:!border-t-gray-900 w-80"
@@ -25,7 +24,6 @@ export default function Login() {
                             />
                         <Typography variant="paragraph" className="mt-4">Password</Typography>
                         <Input
-                            crossOrigin=""
                             type="password"
                             size="lg"
                             placeholder="Masukkan password"
