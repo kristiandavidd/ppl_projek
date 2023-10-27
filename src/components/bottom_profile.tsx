@@ -1,7 +1,12 @@
 import React, { Fragment, useState } from 'react';
 import Modal from './modal'; 
 
-export default function BottomProfile() {
+interface BottomProfileProps {
+    data: any;
+    role: string;
+}
+
+export default function BottomProfile({data, role}: BottomProfileProps) {
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -20,7 +25,7 @@ export default function BottomProfile() {
         >
             Ubah Data
         </button>
-        <Modal isvisible={showModal} onClose={()=> setShowModal(false)} />
+        <Modal isvisible={showModal} onClose={()=> setShowModal(false)} data={data} role={role} />
         </div>
     </Fragment>
   );
