@@ -1,4 +1,3 @@
-import { on } from "events";
 import React, { useState } from "react";
 
 export default function Modal({isvisible, onClose} ) {
