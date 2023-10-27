@@ -3,19 +3,19 @@ import { EmptyLayout } from '@/components/layout'
 import Sidebar from '@/components/sidebar'
 import {Bell} from 'tabler-icons-react'
 
-export default function statistik() {
+export default function DataDoswal() {
   const userData = {
-    role: 'doswal',
-    name: 'Andi Kurnia',
-    idNumber: '199603032022041001',
+    role: 'departemen', 
+    name: 'Departemen Informatika',
+    idNumber: 'Fakultas Sains dan Matematika',
   };
   return (
-    <EmptyLayout pageTitle="Statistik">
+    <EmptyLayout pageTitle="Data Dosen Wali">
       <div className="flex w-full min-h-screen backdrop-blur-3xl">
         <Sidebar data={userData} />
         <div className="w-full pb-16 p-10">
           <div className='flex w-full justify-between'>
-              <h2 className='font-semibold text-lg'>Statistik</h2>
+              <h2 className='font-semibold text-lg'>Data Dosen Wali</h2>
               <Bell size={28} strokeWidth={1.5}></Bell>
           </div>
         </div>
