@@ -6,12 +6,13 @@ import { EmptyLayout } from '@/components/layout';
 import TopProfile from '@/components/top_profile';
 import ProfileContainer from '@/components/profileContainer';
 import { profileData } from '@/config/profile_config';
+import { profileDataMerge } from '@/config/profile_data_merge';
 import { Bell } from 'tabler-icons-react';
 import BottomProfile from '@/components/bottom_profile';
 
 export default function Home() {
     const userData = {
-        role: 'doswal',
+        role: 'Doswal',
         name: 'Andi Kurnia',
         idNumber: '199603032022041001',
     };
@@ -30,7 +31,7 @@ export default function Home() {
                             <ProfileContainer data={...profileData.leftDoswal} />
                             <ProfileContainer data={...profileData.rightDoswal} />
                         </div>
-                        <BottomProfile />
+                        <BottomProfile data={profileDataMerge} role={userData.role}/>
                     </div>
                 </div>
             </div>

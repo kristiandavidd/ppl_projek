@@ -7,10 +7,11 @@ import TopProfile from '@/components/top_profile';
 import ProfileContainer from '@/components/profileContainer';
 import { profileData } from '@/config/profile_config'; 
 import BottomProfile from '@/components/bottom_profile';
+import { profileDataMerge } from '@/config/profile_data_merge';
 
 export default function Home() {
     const userData = {
-        role: 'mhs',
+        role: 'Mhs',
         name: 'Susanto Situmeang',
         idNumber: '24060121130092',
     };
@@ -29,7 +30,7 @@ export default function Home() {
                             <ProfileContainer data={...profileData.leftMhs} />
                             <ProfileContainer data={...profileData.rightMhs} />
                         </div>
-                        <BottomProfile />
+                        <BottomProfile data={profileDataMerge} role={userData.role} />
                     </div>
                 </div>
             </div>
