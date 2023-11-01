@@ -11,33 +11,33 @@ import {
 } from "@material-tailwind/react";
 
 export default function Login() {
-    const axios = require('axios');
+    const axios = require('axios').default;
     const [username, setUsername] = useState(""); 
     const [password, setPassword] = useState(""); 
     const [token, setToken] = useState("");
     const [error, setError] = useState(false);
 
-    const handleSubmit = (e) => {
-        // Fetch login API to http://localhost:8080/signin
-        // If success, redirect to /admin
-        // If failed, show error message
-        e.preventDefault();
-        axios
-        .post(`${process.env.BACKEND_API}/signin`, {
-            username: username,
-            password: password,
-        })
-        .then((response) => {
-            setCookie("accessToken", response.data.accessToken, {
-            maxAge: 60 * 60 * 12,
-            });
-            window.location.href = `/${response.data.roles}`;
-        })
-        .catch((error) => {
-            console.log(error);
-            setError(true);
-        });
-    };
+    // const handleSubmit = (e) => {
+    //     // Fetch login API to http://localhost:8080/signin
+    //     // If success, redirect to /admin
+    //     // If failed, show error message
+    //     e.preventDefault();
+    //     axios
+    //     .post(`${process.env.BACKEND_API}/signin`, {
+    //         username: username,
+    //         password: password,
+    //     })
+    //     .then((response) => {
+    //         setCookie("accessToken", response.data.accessToken, {
+    //         maxAge: 60 * 60 * 12,
+    //         });
+    //         window.location.href = `/${response.data.roles}`;
+    //     })
+    //     .catch((error) => {
+    //         console.log(error);
+    //         setError(true);
+    //     });
+    // };
     return (
         <>
         <EmptyLayout pageTitle="Login">
