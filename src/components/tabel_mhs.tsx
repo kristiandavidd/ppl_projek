@@ -1,15 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
+import ModalValidasi from './modalValidasi';
 
 interface TabelMahasiswaProps {
   mhsValidasi: {
     NIM: string;
     Nama: string;
     Semester: string;
+    SKS_Semester: string;
+    IP_Semester: string;
+    SKS_Kumulatif: string;
+    IP_Kumulatif: string;
   }[];
 }
 
 const TabelMahasiswa = ({ mhsValidasi }: TabelMahasiswaProps) => {
-  const columns = Object.keys(mhsValidasi[0]) as (keyof typeof mhsValidasi[0])[];
+  const columns = Object.keys(mhsValidasi[0]).slice(0, 4);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedData, setSelectedData] = useState({});
+
+  const openModal = (data: any) => {
+    setSelectedData(data);
+    setShowModal(true);
+  };
 
   return (
     <div className=''>
@@ -35,14 +47,18 @@ const TabelMahasiswa = ({ mhsValidasi }: TabelMahasiswaProps) => {
                 </td>
               ))}
                 <td className='flex justify-center'>
-                  <button className='bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded'>
-                    Validasi
-                  </button>
+                <button
+                  className='bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded'
+                  onClick={() => openModal(data)}
+                >
+                  Validasi
+                </button>
                 </td>
             </tr>
           ))}
         </tbody>
       </table>
+      <ModalValidasi isvisible={showModal} onClose={() => setShowModal(false)} data={mhsValidasi} />
     </div>
   );
 };

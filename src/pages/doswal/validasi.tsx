@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { EmptyLayout } from '@/components/layout'
 import Sidebar from '@/components/sidebar'
-import {Bell, Select, Table} from 'tabler-icons-react'
-import { Input } from '@material-tailwind/react';
+import {Bell} from 'tabler-icons-react'
+import { Input, Select, Option } from '@material-tailwind/react';
 import TabelMahasiswa from '@/components/tabel_mhs';
-import { mhsValidasi } from '../../config/mahasiswa_validasi_config';
+// import { mhsTabel } from '../../config/mahasiswa_tabel_config';
+import { mhsValidasi  } from '../../config/mahasiswa_validasi_config';
 import ButtonValidasi from '../../components/button_validasi';
 
 export default function Validasi() {
@@ -13,12 +14,15 @@ export default function Validasi() {
         name: 'Andi Kurnia',
         idNumber: '199603032022041001',
     };
-    const [selectedData, setSelectedData] = useState(null);
+    const [selectedTableData, setSelectedTableData] = useState(null);
+    const [selectedVldData, setSelectedVldData] = useState(null);
+    
     const handleButtonValidasiClick = (data) => {
-        if (selectedData === data) {
-            setSelectedData(null); // Tombol sudah aktif, klik lagi untuk menonaktifkannya
+        if (selectedTableData === data) {
+            setSelectedTableData(null); // Tombol sudah aktif, klik lagi untuk menonaktifkannya
         } else {
-        setSelectedData(data); // Aktifkan tombol yang lain
+        setSelectedTableData(data); // Aktifkan tombol yang lain
+        setSelectedVldData(data)
         }
     };
 
@@ -37,25 +41,25 @@ export default function Validasi() {
                         data={mhsValidasi.IRS}
                         title={'IRS'}
                         onClick={() => handleButtonValidasiClick(mhsValidasi.IRS)}
-                        selected={selectedData === mhsValidasi.IRS}
+                        selected={selectedTableData === mhsValidasi.IRS }
                     />
                     <ButtonValidasi
                         data={mhsValidasi.KHS}
                         title={'KHS'}
                         onClick={() => handleButtonValidasiClick(mhsValidasi.KHS)}
-                        selected={selectedData === mhsValidasi.KHS}
+                        selected={selectedTableData === mhsValidasi.KHS}
                     />
                     <ButtonValidasi
                         data={mhsValidasi.PKL}
                         title={'PKL'}
                         onClick={() => handleButtonValidasiClick(mhsValidasi.PKL)}
-                        selected={selectedData === mhsValidasi.PKL}
+                        selected={selectedTableData === mhsValidasi.PKL}
                     />
                     <ButtonValidasi
                         data={mhsValidasi.Skripsi}
                         title={'Skripsi'}
                         onClick={() => handleButtonValidasiClick(mhsValidasi.Skripsi)}
-                        selected={selectedData === mhsValidasi.Skripsi}
+                        selected={selectedTableData === mhsValidasi.Skripsi}
                     />
                     </div>
                     <div className='bg-blue-50 shadow-lg shadow-blue-500/20 rounded-lg p-4'>
@@ -68,18 +72,15 @@ export default function Validasi() {
                                     className='border border-gray-300 rounded-md'>
                                 </Input>
                             </div>
-                            <div className='w-1/6 flex items-center justify-center border border-gray-400 rounded-md ml-5'>
-                                <select className='bg-blue-50 text-sm'>
-                                    <option>Urutkan</option>
-                                    <option value={'NIM'}>NIM</option>
-                                    <option value={'Semester'}>Semester</option>
-                                </select>
+                            <div className='w-1/4 flex items-center justify-center rounded-md ml-3'>
+                                <Select variant="outlined" label="Urutkan">
+                                    <Option>NIM</Option>
+                                    <Option>Angkatan</Option>
+                                </Select>
                             </div>
                         </div>
                         <div className='mt-4'>
-                            {/* <TabelMahasiswa mhsValidasi={mhsValidasi.IRS}/> */}
-                            {/* <TabelMahasiswa mhsValidasi={mhsValidasi.KHS}/> */}
-                            {selectedData && <TabelMahasiswa mhsValidasi={selectedData} />}
+                            {selectedTableData && <TabelMahasiswa mhsValidasi={selectedTableData}/>}
                         </div>
                     </div>
                 </div>
