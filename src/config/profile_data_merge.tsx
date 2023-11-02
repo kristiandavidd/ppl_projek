@@ -1,8 +1,8 @@
 export const profileDataMerge = {
-    Mhs: [
+    mhs: [
         {
             title: 'Nama',
-            value: 'Andi Kurnia'
+            value: 'Susanto Situmeang'
         },
         {
             title: 'NIM',
@@ -41,10 +41,10 @@ export const profileDataMerge = {
             value: 'Jawa Tengah'
         }
     ],
-    Doswal: [
+    doswal: [
         {
             title: 'Nama',
-            value: 'Susanto Situmeang'
+            value: 'Andi Kurnia'
         },
         {
             title: 'NIP',
@@ -91,7 +91,7 @@ export const profileDataMerge = {
             value: 'Jawa Tengah'
         }
     ],
-    Operator: [
+    operator: [
         {
             title: 'Nama',
             value: 'Mario Susanti'

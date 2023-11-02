@@ -15,7 +15,7 @@ export default function Home() {
     };
     return (
         <EmptyLayout pageTitle="Dashboard">
-            <div className="flex w-full h-full backdrop-blur-3xl">
+            <div className="flex min-h-screen w-full h-full backdrop-blur-3xl">
                 <Sidebar data={userData} />
                 <div className="w-full pb-16 p-10">
                     <div className='flex w-full justify-between'>

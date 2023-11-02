@@ -4,9 +4,8 @@ import Sidebar from '@/components/sidebar'
 import {Bell} from 'tabler-icons-react'
 import { Input, Select, Option } from '@material-tailwind/react';
 import TabelMahasiswa from '@/components/tabel_mhs';
-// import { mhsTabel } from '../../config/mahasiswa_tabel_config';
-import { mhsValidasi  } from '../../config/mahasiswa_validasi_config';
 import ButtonValidasi from '../../components/button_validasi';
+import { IRS, KHS, PKL, Skripsi } from '../../config/Data_IRS_KHS_PKL_Skripsi';
 
 export default function Validasi() {
     const userData = {
@@ -14,15 +13,14 @@ export default function Validasi() {
         name: 'Andi Kurnia',
         idNumber: '199603032022041001',
     };
-    const [selectedTableData, setSelectedTableData] = useState(null);
-    const [selectedVldData, setSelectedVldData] = useState(null);
-    
+
+    const [selectedData, setSelectedData] = useState(null);
+
     const handleButtonValidasiClick = (data) => {
-        if (selectedTableData === data) {
-            setSelectedTableData(null); // Tombol sudah aktif, klik lagi untuk menonaktifkannya
+        if (selectedData === data) {
+        setSelectedData(null);
         } else {
-        setSelectedTableData(data); // Aktifkan tombol yang lain
-        setSelectedVldData(data)
+        setSelectedData(data);
         }
     };
 
@@ -38,28 +36,28 @@ export default function Validasi() {
                 <div className='mt-5'>
                     <div className='flex justify-center gap-10'>
                     <ButtonValidasi
-                        data={mhsValidasi.IRS}
                         title={'IRS'}
-                        onClick={() => handleButtonValidasiClick(mhsValidasi.IRS)}
-                        selected={selectedTableData === mhsValidasi.IRS }
+                        onClick={() => handleButtonValidasiClick(IRS)}
+                        selected={selectedData === IRS}
+                        count={IRS.length}
                     />
                     <ButtonValidasi
-                        data={mhsValidasi.KHS}
                         title={'KHS'}
-                        onClick={() => handleButtonValidasiClick(mhsValidasi.KHS)}
-                        selected={selectedTableData === mhsValidasi.KHS}
+                        onClick={() => handleButtonValidasiClick(KHS)}
+                        selected={selectedData === KHS}
+                        count={KHS.length}
                     />
                     <ButtonValidasi
-                        data={mhsValidasi.PKL}
                         title={'PKL'}
-                        onClick={() => handleButtonValidasiClick(mhsValidasi.PKL)}
-                        selected={selectedTableData === mhsValidasi.PKL}
+                        onClick={() => handleButtonValidasiClick(PKL)}
+                        selected={selectedData === PKL}
+                        count={PKL.length}
                     />
                     <ButtonValidasi
-                        data={mhsValidasi.Skripsi}
                         title={'Skripsi'}
-                        onClick={() => handleButtonValidasiClick(mhsValidasi.Skripsi)}
-                        selected={selectedTableData === mhsValidasi.Skripsi}
+                        onClick={() => handleButtonValidasiClick(Skripsi)}
+                        selected={selectedData === Skripsi}
+                        count={Skripsi.length}
                     />
                     </div>
                     <div className='bg-blue-50 shadow-lg shadow-blue-500/20 rounded-lg p-4'>
@@ -80,7 +78,7 @@ export default function Validasi() {
                             </div>
                         </div>
                         <div className='mt-4'>
-                            {selectedTableData && <TabelMahasiswa mhsValidasi={selectedTableData}/>}
+                            {selectedData && <TabelMahasiswa mhsValidasi={selectedData}/>}
                         </div>
                     </div>
                 </div>
