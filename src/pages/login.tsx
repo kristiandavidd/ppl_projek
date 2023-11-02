@@ -16,23 +16,23 @@ export default function Login() {
     const [token, setToken] = useState("");
     const [error, setError] = useState(false);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e : any) => {
         // Fetch login API to http://localhost:8080/signin
         // If success, redirect to /admin
         // If failed, show error message
         e.preventDefault();
         axios
-        .post(`${process.env.BACKEND_API}/signin`, {
+        .post(`${process.env.BACKEND_API}/login`, {
             username: username,
             password: password,
         })
-        .then((response) => {
+        .then((response : any) => {
             setCookie("accessToken", response.data.accessToken, {
             maxAge: 60 * 60 * 12,
             });
             window.location.href = `/${response.data.roles}`;
         })
-        .catch((error) => {
+        .catch((error : any) => {
             console.log(error);
             setError(true);
         });
