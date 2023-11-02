@@ -20,9 +20,9 @@ export default function Khs() {
     name: "Susanto Situmeang",
     idNumber: "24060121130092",
   };
-  const [uploadedFileName, setUploadedFileName] = React.useState(null);
+  const [uploadedFileName, setUploadedFileName] = React.useState("");
 
-  const handleFileUpload = (event: { target: { files: any[]; value: null; }; }) => {
+  const handleFileUpload = (event: any) => {
     const file = event.target.files[0];
     if (file) {
       const fileName = file.name;
@@ -31,25 +31,21 @@ export default function Khs() {
 
       const maxFileSize = 50 * 1024 * 1024;
 
-      if (
-        fileExtension.toLowerCase() !== "pdf" 
-      ) {
-        alert(
-          "Hanya file dengan format PDF yang dapat diunggah!"
-        );
-        event.target.value = null; // Reset input file
-        setUploadedFileName(null);
+      if (fileExtension.toLowerCase() !== "pdf") {
+        alert("Hanya file dengan format PDF yang dapat diunggah!");
+        event.target.value = ""; // Reset input file
+        setUploadedFileName("");
       } else if (fileSize > maxFileSize) {
         alert("Ukuran file terlalu besar. Maksimal ukuran file adalah 50 MB.");
-        event.target.value = null; // Reset input file
-        setUploadedFileName(null);
+        event.target.value = ""; // Reset input file
+        setUploadedFileName("");
       } else {
         setUploadedFileName(fileName);
       }
     }
   };
 
-  const handleDrop = (event: { preventDefault: () => void; dataTransfer: { files: any[]; }; }) => {
+  const handleDrop = (event: any) => {
     event.preventDefault();
     const file = event.dataTransfer.files[0];
     if (file) {
@@ -59,23 +55,19 @@ export default function Khs() {
 
       const maxFileSize = 50 * 1024 * 1024;
 
-      if (
-        fileExtension.toLowerCase() !== "pdf"
-      ) {
-        alert(
-          "Hanya file dengan format PDF yang dapat diunggah!"
-        );
-        setUploadedFileName(null);
+      if (fileExtension.toLowerCase() !== "pdf") {
+        alert("Hanya file dengan format PDF yang dapat diunggah!");
+        setUploadedFileName("");
       } else if (fileSize > maxFileSize) {
         alert("Ukuran file terlalu besar. Maksimal ukuran file adalah 50 MB.");
-        setUploadedFileName(null);
+        setUploadedFileName("");
       } else {
         setUploadedFileName(fileName);
       }
     }
   };
 
-  const handleDragOver = (event: { preventDefault: () => void; }) => {
+  const handleDragOver = (event: any) => {
     event.preventDefault();
   };
 
@@ -116,7 +108,7 @@ export default function Khs() {
                     label="Jumlah SKS Semester"
                     type="number"
                     step="1"
-                />
+                  />
                 </div>
                 <div className="my-7">
                   <Input
@@ -124,7 +116,7 @@ export default function Khs() {
                     label="Jumlah SKS Kumulatif"
                     type="number"
                     step="1"
-                />
+                  />
                 </div>
                 <div className="my-7">
                   <Input
@@ -132,7 +124,7 @@ export default function Khs() {
                     label="IP semester"
                     type="number"
                     step="0.01"
-                />
+                  />
                 </div>
                 <div className="my-7">
                   <Input
@@ -140,18 +132,20 @@ export default function Khs() {
                     label="IP Kumulatif"
                     type="number"
                     step="0.01"
-                />
+                  />
                 </div>
-                
+
                 <div className="mt-7">
                   <label className="text-sm font-semibold">Scan KHS</label>
                 </div>
                 <UploadFile
-              handleFileUpload={handleFileUpload}
-              handleDrop={handleDrop}
-              handleDragOver={handleDragOver}
-              uploadedFileName={uploadedFileName}
-            />
+                  handleFileUpload={handleFileUpload}
+                  handleDrop={handleDrop}
+                  handleDragOver={handleDragOver}
+                  uploadedFileName={uploadedFileName}
+                  type={".pdf"}
+                  maxFileSize={"50 MB"}
+                />
               </CardBody>
               <CardFooter className="pt-0 flex justify-end">
                 <Button color="blue">Simpan Data</Button>
@@ -159,9 +153,7 @@ export default function Khs() {
             </Card>
           </div>
         </div>
-        </div>
+      </div>
     </EmptyLayout>
   );
 }
-
-

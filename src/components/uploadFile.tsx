@@ -1,7 +1,15 @@
 import React from "react";
 
+type UploadFileProps = {
+  handleFileUpload: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleDrop: (event: React.DragEvent<HTMLLabelElement>) => void;
+  handleDragOver: (event: React.DragEvent<HTMLLabelElement>) => void;
+  uploadedFileName: string;
+  type: string;
+  maxFileSize: string;
+};
 
-export default function UploadFile({ handleFileUpload, handleDrop, handleDragOver, uploadedFileName }){
+export default function UploadFile({ handleFileUpload, handleDrop, handleDragOver, uploadedFileName, type, maxFileSize }: UploadFileProps): JSX.Element | null{
   return (
     <>
         <div className="flex items-center justify-center w-full">
@@ -30,7 +38,7 @@ export default function UploadFile({ handleFileUpload, handleDrop, handleDragOve
               <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
                 <span className="font-semibold">Click to upload</span> or drag and drop
               </p>
-              {/* <p className="text-xs text-gray-500 dark:text-gray-400">.pdf (Max. 50 MB)</p> */}
+              <p className="text-xs text-gray-500 dark:text-gray-400">{type} (Max. {maxFileSize})</p>
             </div>
             <input
               id="dropzone-file"

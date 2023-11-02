@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from "react";
-import { Upload } from "tabler-icons-react";
 import UploadFile from "./uploadFile";
+import { all } from "axios";
 
 type Data = {
   [key: string]: {
@@ -21,19 +21,16 @@ export default function ModalEditFoto({
   onClose,
   data,
   role,
-}: ModalProps): JSX.Element | null {
-  const [formData, setFormData] = useState<{ [key: string]: string }>({});
-  const [uploadedFileName, setUploadedFileName] = React.useState(null);
+}: ModalProps): JSX.Element | "" {
+  const [uploadedFileName, setUploadedFileName] = React.useState("");
 
   
   if (!isvisible) {
-    return null;
+    return "";
 }
 
 
-  const handleFileUpload = (event: {
-    target: { files: any[]; value: null };
-  }) => {
+  const handleFileUpload = (event: any) => {
     const file = event.target.files[0];
     if (file) {
       const fileName = file.name;
@@ -47,22 +44,19 @@ export default function ModalEditFoto({
         alert(
           "Hanya file dengan format JPG, JPEG, atau PNG yang dapat diunggah!"
         );
-        event.target.value = null; // Reset input file
-        setUploadedFileName(null);
+        event.target.value = ""; // Reset input file
+        setUploadedFileName("");
       } else if (fileSize > maxFileSize) {
         alert("Ukuran file terlalu besar. Maksimal ukuran file adalah 5 MB.");
-        event.target.value = null; // Reset input file
-        setUploadedFileName(null);
+        event.target.value = ""; // Reset input file
+        setUploadedFileName("");
       } else {
         setUploadedFileName(fileName);
       }
     }
   };
 
-  const handleDrop = (event: {
-    preventDefault: () => void;
-    dataTransfer: { files: any[] };
-  }) => {
+  const handleDrop = (event: any) => {
     event.preventDefault();
     const file = event.dataTransfer.files[0];
     if (file) {
@@ -77,17 +71,17 @@ export default function ModalEditFoto({
         alert(
           "Hanya file dengan format JPG, JPEG, atau PNG yang dapat diunggah!"
         );
-        setUploadedFileName(null);
+        setUploadedFileName("");
       } else if (fileSize > maxFileSize) {
         alert("Ukuran file terlalu besar. Maksimal ukuran file adalah 5 MB.");
-        setUploadedFileName(null);
+        setUploadedFileName("");
       } else {
         setUploadedFileName(fileName);
       }
     }
   };
 
-  const handleDragOver = (event: { preventDefault: () => void }) => {
+  const handleDragOver = (event: any) => {
     event.preventDefault();
   };
 
@@ -100,12 +94,14 @@ export default function ModalEditFoto({
           </div>
           <div className="relative p-6 flex-auto">
             <div>
-              <UploadFile
-                handleFileUpload={handleFileUpload}
-                handleDrop={handleDrop}
-                handleDragOver={handleDragOver}
-                uploadedFileName={uploadedFileName}
-              />
+            <UploadFile
+              handleFileUpload={handleFileUpload}
+              handleDrop={handleDrop}
+              handleDragOver={handleDragOver}
+              uploadedFileName={uploadedFileName}
+              type={".jpg, .jpeg, .png"}
+              maxFileSize={"5 MB"}
+            />
             </div>
             <div className="flex justify-end mt-4">
               <button

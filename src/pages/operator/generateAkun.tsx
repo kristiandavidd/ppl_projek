@@ -22,7 +22,7 @@ export default function DataDoswal() {
   const [age, setAge] = React.useState("");
   const [uploadedFileName, setUploadedFileName] = React.useState(null);
 
-  const handleFileUpload = (event) => {
+  const handleFileUpload = (event : any) => {
     const file = event.target.files[0];
     if (file) {
       const fileName = file.name;
@@ -49,7 +49,7 @@ export default function DataDoswal() {
     }
   };
   
-  const handleDrop = (event) => {
+  const handleDrop = (event : any) => {
     event.preventDefault();
     const file = event.dataTransfer.files[0];
     if (file) {
@@ -75,7 +75,7 @@ export default function DataDoswal() {
     }
   };
   
-  const handleDragOver = (event) => {
+  const handleDragOver = (event : any) => {
     event.preventDefault();
   };
   
@@ -169,7 +169,7 @@ export default function DataDoswal() {
                         or drag and drop
                       </p>
                       <p className="text-xs text-gray-500 dark:text-gray-400">
-                        CSV or XLSX or XLS (Max. 50 MB)
+                        .csv, .xlxs, .xsl (Max. 50 MB)
                       </p>
                     </div>
                     <input

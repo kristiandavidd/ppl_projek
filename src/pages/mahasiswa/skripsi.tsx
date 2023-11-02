@@ -20,15 +20,13 @@ export default function Skripsi() {
     name: "Susanto Situmeang",
     idNumber: "24060121130092",
   };
-  const [uploadedFileName, setUploadedFileName] = React.useState(null);
+  const [uploadedFileName, setUploadedFileName] = React.useState("");
   const [statusSkripsi, setStatusSkripsi] = React.useState("");
   const [nilaiSkripsi, setNilaiSkripsi] = React.useState("");
   const [lamaStudi, setLamaStudi] = React.useState("");
   const [tglLulus, setTglLulus] = React.useState("");
 
-  const handleFileUpload = (event: {
-    target: { files: any[]; value: null };
-  }) => {
+  const handleFileUpload = (event: any) => {
     const file = event.target.files[0];
     if (file) {
       const fileName = file.name;
@@ -39,22 +37,19 @@ export default function Skripsi() {
 
       if (fileExtension.toLowerCase() !== "pdf") {
         alert("Hanya file dengan format PDF yang dapat diunggah!");
-        event.target.value = null; // Reset input file
-        setUploadedFileName(null);
+        event.target.value = ""; // Reset input file
+        setUploadedFileName("");
       } else if (fileSize > maxFileSize) {
         alert("Ukuran file terlalu besar. Maksimal ukuran file adalah 50 MB.");
-        event.target.value = null; // Reset input file
-        setUploadedFileName(null);
+        event.target.value = ""; // Reset input file
+        setUploadedFileName("");
       } else {
         setUploadedFileName(fileName);
       }
     }
   };
 
-  const handleDrop = (event: {
-    preventDefault: () => void;
-    dataTransfer: { files: any[] };
-  }) => {
+  const handleDrop = (event: any) => {
     event.preventDefault();
     const file = event.dataTransfer.files[0];
     if (file) {
@@ -66,17 +61,17 @@ export default function Skripsi() {
 
       if (fileExtension.toLowerCase() !== "pdf") {
         alert("Hanya file dengan format PDF yang dapat diunggah!");
-        setUploadedFileName(null);
+        setUploadedFileName("");
       } else if (fileSize > maxFileSize) {
         alert("Ukuran file terlalu besar. Maksimal ukuran file adalah 50 MB.");
-        setUploadedFileName(null);
+        setUploadedFileName("");
       } else {
         setUploadedFileName(fileName);
       }
     }
   };
 
-  const handleDragOver = (event: { preventDefault: () => void }) => {
+  const handleDragOver = (event: any) => {
     event.preventDefault();
   };
 
@@ -175,6 +170,8 @@ export default function Skripsi() {
                   handleDrop={handleDrop}
                   handleDragOver={handleDragOver}
                   uploadedFileName={uploadedFileName}
+                  type={".pdf"}
+                  maxFileSize={"50 MB"}
                 />
               </CardBody>
               <CardFooter className="pt-0 flex justify-end">
