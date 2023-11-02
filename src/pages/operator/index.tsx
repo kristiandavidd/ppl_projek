@@ -11,7 +11,7 @@ import { profileDataMerge } from '@/config/profile_data_merge';
 
 export default function Home() {
     const userData = {
-        role: 'Operator', 
+        role: 'operator', 
         name: 'Mario Susanti',
         idNumber: '199603032022041005',
     };

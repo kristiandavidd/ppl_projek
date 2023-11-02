@@ -1,7 +1,5 @@
-import Image from 'next/image'
-import { Poppins } from 'next/font/google'
+import React from 'react'
 import Sidebar from '@/components/sidebar';
-import { sidebarData } from '@/config/sidebar_config';
 import { EmptyLayout } from '@/components/layout';
 import TopProfile from '@/components/top_profile';
 import ProfileContainer from '@/components/profileContainer';
@@ -12,13 +10,13 @@ import BottomProfile from '@/components/bottom_profile';
 
 export default function Home() {
     const userData = {
-        role: 'Doswal',
+        role: 'doswal',
         name: 'Andi Kurnia',
         idNumber: '199603032022041001',
     };
     return (
         <EmptyLayout pageTitle="Dashboard">
-            <div className="flex w-full h-full backdrop-blur-3xl">
+            <div className="flex w-full min-h-screen backdrop-blur-3xl">
                 <Sidebar data={userData} />
                 <div className="w-full pb-16 p-10">
                     <div className='flex w-full justify-between'>
