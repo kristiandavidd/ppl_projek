@@ -14,7 +14,7 @@ type ModalProps = {
     role: string;
 };
 
-export default function Modal({ isvisible, onClose, data, role }: ModalProps): JSX.Element | null {
+export default function ModalEditProfil({ isvisible, onClose, data, role }: ModalProps): JSX.Element | null {
     const [formData, setFormData] = useState<{ [key: string]: string }>({});
 
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -55,8 +55,9 @@ export default function Modal({ isvisible, onClose, data, role }: ModalProps): J
                                                 item.title === "Nama" ||
                                                 item.title === "NIM" ||
                                                 item.title === "Email" ||
-                                                item.title === "NIP"
-                                            } // Menonaktifkan input untuk Nama, NIM, dan Email
+                                                item.title === "NIP" ||
+                                                item.title === "Angkatan" 
+                                            } 
                                         />
                                     </div>
                                 ))}

@@ -28,14 +28,15 @@ export default function DataDoswal() {
       const fileName = file.name;
       const fileExtension = fileName.split(".").pop();
       const fileSize = file.size;
-
+  
       const maxFileSize = 50 * 1024 * 1024;
-
+  
       if (
         fileExtension.toLowerCase() !== "csv" &&
-        fileExtension.toLowerCase() !== "xlsx"
+        fileExtension.toLowerCase() !== "xlsx" &&
+        fileExtension.toLowerCase() !== "xls"
       ) {
-        alert("Hanya file dengan format CSV atau XLSX yang dapat diunggah!");
+        alert("Hanya file dengan format CSV, XLSX, atau XLS yang dapat diunggah!");
         event.target.value = null; // Reset input file
         setUploadedFileName(null);
       } else if (fileSize > maxFileSize) {
@@ -47,11 +48,7 @@ export default function DataDoswal() {
       }
     }
   };
-
-  const handleDragOver = (event) => {
-    event.preventDefault();
-  };
-
+  
   const handleDrop = (event) => {
     event.preventDefault();
     const file = event.dataTransfer.files[0];
@@ -59,26 +56,29 @@ export default function DataDoswal() {
       const fileName = file.name;
       const fileExtension = fileName.split(".").pop();
       const fileSize = file.size;
-
+  
       const maxFileSize = 50 * 1024 * 1024;
-
+  
       if (
         fileExtension.toLowerCase() !== "csv" &&
-        fileExtension.toLowerCase() !== "xlsx"
+        fileExtension.toLowerCase() !== "xlsx" &&
+        fileExtension.toLowerCase() !== "xls"
       ) {
-        alert("Hanya file dengan format CSV atau XLSX yang dapat diunggah!");
-        event.target.value = null; // Reset input file
+        alert("Hanya file dengan format CSV, XLSX, atau XLS yang dapat diunggah!");
         setUploadedFileName(null);
       } else if (fileSize > maxFileSize) {
         alert("Ukuran file terlalu besar. Maksimal ukuran file adalah 50 MB.");
-        event.target.value = null; // Reset input file
         setUploadedFileName(null);
       } else {
         setUploadedFileName(fileName);
       }
     }
   };
-
+  
+  const handleDragOver = (event) => {
+    event.preventDefault();
+  };
+  
   return (
     <EmptyLayout pageTitle="Generate Akun Baru">
       <div className="flex w-full min-h-screen backdrop-blur-3xl">
@@ -106,6 +106,8 @@ export default function DataDoswal() {
                     <Option>Cuti</Option>
                     <Option>Mangkir</Option>
                     <Option>Drop Out</Option>
+                    <Option>Undur Diri</Option>
+                    <Option>Lulus</Option>
                     <Option>Meninggal Dunia</Option>
                   </Select>
                 </div>
@@ -141,8 +143,8 @@ export default function DataDoswal() {
               <CardBody>
                 <div className="flex items-center justify-center w-full">
                   <label
-                    onDragOver={handleDragOver}
-                    onDrop={handleDrop}
+                    onDragOver={(event) => handleDragOver(event)}
+                    onDrop={(event) => handleDrop(event)}
                     htmlFor="dropzone-file"
                     className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
                   >
@@ -167,7 +169,7 @@ export default function DataDoswal() {
                         or drag and drop
                       </p>
                       <p className="text-xs text-gray-500 dark:text-gray-400">
-                        CSV or XLSX (Max. 50 MB)
+                        CSV or XLSX or XLS (Max. 50 MB)
                       </p>
                     </div>
                     <input
@@ -175,7 +177,7 @@ export default function DataDoswal() {
                       type="file"
                       className="hidden"
                       onChange={handleFileUpload}
-                      accept=".csv, .xlsx"
+                      accept=".csv, .xlsx, .xls"
                     />
                   </label>
                 </div>
