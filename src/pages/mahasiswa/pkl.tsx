@@ -20,10 +20,13 @@ export default function Pkl() {
     name: "Susanto Situmeang",
     idNumber: "24060121130092",
   };
-  const [age, setAge] = React.useState("");
   const [uploadedFileName, setUploadedFileName] = React.useState(null);
+  const [statusPkl, setStatusPkl] = React.useState("");
+  const [nilaiPkl, setNilaiPkl] = React.useState("");
 
-  const handleFileUpload = (event: { target: { files: any[]; value: null; }; }) => {
+  const handleFileUpload = (event: {
+    target: { files: any[]; value: null };
+  }) => {
     const file = event.target.files[0];
     if (file) {
       const fileName = file.name;
@@ -32,12 +35,8 @@ export default function Pkl() {
 
       const maxFileSize = 50 * 1024 * 1024;
 
-      if (
-        fileExtension.toLowerCase() !== "pdf" 
-      ) {
-        alert(
-          "Hanya file dengan format PDF yang dapat diunggah!"
-        );
+      if (fileExtension.toLowerCase() !== "pdf") {
+        alert("Hanya file dengan format PDF yang dapat diunggah!");
         event.target.value = null; // Reset input file
         setUploadedFileName(null);
       } else if (fileSize > maxFileSize) {
@@ -50,7 +49,10 @@ export default function Pkl() {
     }
   };
 
-  const handleDrop = (event: { preventDefault: () => void; dataTransfer: { files: any[]; }; }) => {
+  const handleDrop = (event: {
+    preventDefault: () => void;
+    dataTransfer: { files: any[] };
+  }) => {
     event.preventDefault();
     const file = event.dataTransfer.files[0];
     if (file) {
@@ -60,12 +62,8 @@ export default function Pkl() {
 
       const maxFileSize = 50 * 1024 * 1024;
 
-      if (
-        fileExtension.toLowerCase() !== "pdf"
-      ) {
-        alert(
-          "Hanya file dengan format PDF yang dapat diunggah!"
-        );
+      if (fileExtension.toLowerCase() !== "pdf") {
+        alert("Hanya file dengan format PDF yang dapat diunggah!");
         setUploadedFileName(null);
       } else if (fileSize > maxFileSize) {
         alert("Ukuran file terlalu besar. Maksimal ukuran file adalah 50 MB.");
@@ -76,8 +74,15 @@ export default function Pkl() {
     }
   };
 
-  const handleDragOver = (event: { preventDefault: () => void; }) => {
+  const handleDragOver = (event: { preventDefault: () => void }) => {
     event.preventDefault();
+  };
+
+  const handleStatusPklChange = (value: React.SetStateAction<string>) => {
+    setStatusPkl(value);
+    if (value !== "Lulus") {
+      setNilaiPkl("");
+    }
   };
 
   return (
@@ -93,32 +98,45 @@ export default function Pkl() {
             <Card className="mt-6 w-full">
               <CardBody>
                 <div className="mb-7">
-                  <Select label="Status PKL" color="blue">
-                    <Option>Belum Ambil</Option>
-                    <Option>Sedang Ambil</Option>
-                    <Option>Lulus</Option>
+                  <Select
+                    label="Status PKL"
+                    color="blue"
+                    onChange={handleStatusPklChange as any}
+                    value={statusPkl}
+                  >
+                    <Option value="Belum Ambil">Belum Ambil</Option>
+                    <Option value="Sedang Ambil">Sedang Ambil</Option>
+                    <Option value="Lulus">Lulus</Option>
                   </Select>
                 </div>
 
                 <div className="mb-7">
-                  <Select label="Nilai PKL" color="blue">
-                    <Option>A</Option>
-                    <Option>B</Option>
-                    <Option>C</Option>
-                    <Option>D</Option>
-                    <Option>E</Option>
+                  <Select
+                    label="Nilai PKL"
+                    color="blue"
+                    value={statusPkl === "Lulus" ? nilaiPkl : ""}
+                    onChange={(value) => setNilaiPkl(value as any)}
+                    disabled={statusPkl !== "Lulus"}
+                  >
+                    <Option value="A">A</Option>
+                    <Option value="B">B</Option>
+                    <Option value="C">C</Option>
+                    <Option value="D">D</Option>
+                    <Option value="E">E</Option>
                   </Select>
                 </div>
-                
+
                 <div className="mt-7">
-                  <label className="text-sm font-semibold">Scan Berita Acara</label>
+                  <label className="text-sm font-semibold">
+                    Scan Berita Acara
+                  </label>
                 </div>
                 <UploadFile
-              handleFileUpload={handleFileUpload}
-              handleDrop={handleDrop}
-              handleDragOver={handleDragOver}
-              uploadedFileName={uploadedFileName}
-            />
+                  handleFileUpload={handleFileUpload}
+                  handleDrop={handleDrop}
+                  handleDragOver={handleDragOver}
+                  uploadedFileName={uploadedFileName}
+                />
               </CardBody>
               <CardFooter className="pt-0 flex justify-end">
                 <Button color="blue">Simpan Data</Button>
@@ -126,8 +144,7 @@ export default function Pkl() {
             </Card>
           </div>
         </div>
-        </div>
+      </div>
     </EmptyLayout>
   );
 }
-

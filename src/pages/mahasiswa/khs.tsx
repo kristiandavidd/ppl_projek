@@ -20,7 +20,6 @@ export default function Khs() {
     name: "Susanto Situmeang",
     idNumber: "24060121130092",
   };
-  const [age, setAge] = React.useState("");
   const [uploadedFileName, setUploadedFileName] = React.useState(null);
 
   const handleFileUpload = (event: { target: { files: any[]; value: null; }; }) => {
