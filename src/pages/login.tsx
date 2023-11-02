@@ -2,12 +2,14 @@ import { EmptyLayout } from "@/components/layout";
 import { setCookie, getCookie} from "cookies-next";
 import { useState } from "react";
 
+
 import {
     Card,
     Input,
     Button,
     Typography,
 } from "@material-tailwind/react";
+import { useRouter } from "next/router";
 
 export default function Login() {
     const axios = require('axios').default;
@@ -15,6 +17,7 @@ export default function Login() {
     const [password, setPassword] = useState(""); 
     const [token, setToken] = useState("");
     const [error, setError] = useState(false);
+    const router = useRouter();
 
     const handleSubmit = (e : any) => {
         // Fetch login API to http://localhost:8080/signin
@@ -68,7 +71,7 @@ export default function Login() {
                                     className: "before:content-none after:content-none",
                                 }}
                             />
-                            <Button className="mt-6 bg-blue-500" fullWidth>Login</Button>
+                            <Button className="mt-6 bg-blue-500" fullWidth onClick={() => router.push('/mahasiswa')}>Login</Button>
                             <Typography className="text-center mt-2">Lupa Password?
                                 <a href="#" className="text-gray-400"> Klik Disini</a> 
                             </Typography>
