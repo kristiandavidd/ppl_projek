@@ -1,5 +1,4 @@
 import { EmptyLayout } from "@/components/layout";
-import Head from "next/head";
 import { setCookie, getCookie} from "cookies-next";
 import { useState } from "react";
 
@@ -17,27 +16,27 @@ export default function Login() {
     const [token, setToken] = useState("");
     const [error, setError] = useState(false);
 
-    // const handleSubmit = (e) => {
-    //     // Fetch login API to http://localhost:8080/signin
-    //     // If success, redirect to /admin
-    //     // If failed, show error message
-    //     e.preventDefault();
-    //     axios
-    //     .post(`${process.env.BACKEND_API}/signin`, {
-    //         username: username,
-    //         password: password,
-    //     })
-    //     .then((response) => {
-    //         setCookie("accessToken", response.data.accessToken, {
-    //         maxAge: 60 * 60 * 12,
-    //         });
-    //         window.location.href = `/${response.data.roles}`;
-    //     })
-    //     .catch((error) => {
-    //         console.log(error);
-    //         setError(true);
-    //     });
-    // };
+    const handleSubmit = (e) => {
+        // Fetch login API to http://localhost:8080/signin
+        // If success, redirect to /admin
+        // If failed, show error message
+        e.preventDefault();
+        axios
+        .post(`${process.env.BACKEND_API}/signin`, {
+            username: username,
+            password: password,
+        })
+        .then((response) => {
+            setCookie("accessToken", response.data.accessToken, {
+            maxAge: 60 * 60 * 12,
+            });
+            window.location.href = `/${response.data.roles}`;
+        })
+        .catch((error) => {
+            console.log(error);
+            setError(true);
+        });
+    };
     return (
         <>
         <EmptyLayout pageTitle="Login">
