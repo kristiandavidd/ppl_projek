@@ -73,10 +73,6 @@ export default function DataDoswal() {
     }
   };
 
-  // const handleChange = (event: SelectChangeEvent) => {
-  //   setAge(event.target.value as string);
-  // };
-
   return (
     <EmptyLayout pageTitle="Generate Akun Baru">
       <div className="flex w-full min-h-screen backdrop-blur-3xl">
