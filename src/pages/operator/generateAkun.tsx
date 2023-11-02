@@ -73,6 +73,10 @@ export default function DataDoswal() {
     }
   };
 
+  // const handleChange = (event: SelectChangeEvent) => {
+  //   setAge(event.target.value as string);
+  // };
+
   return (
     <EmptyLayout pageTitle="Generate Akun Baru">
       <div className="flex w-full min-h-screen backdrop-blur-3xl">
@@ -84,7 +88,7 @@ export default function DataDoswal() {
           </div>
           <div className="">
             <Card className="mt-6 w-full">
-  
+              <CardBody>
                 <div className="mb-7">
                   <Input color="blue" label="NIM" />
                 </div>
