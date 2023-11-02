@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import Modal from './modal'; 
+import Modal from './modalEditProfil'; 
 
 interface BottomProfileProps {
     data: any;
