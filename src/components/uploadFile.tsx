@@ -30,7 +30,7 @@ export default function UploadFile({ handleFileUpload, handleDrop, handleDragOve
               <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
                 <span className="font-semibold">Click to upload</span> or drag and drop
               </p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">.pdf (Max. 50 MB)</p>
+              {/* <p className="text-xs text-gray-500 dark:text-gray-400">.pdf (Max. 50 MB)</p> */}
             </div>
             <input
               id="dropzone-file"
