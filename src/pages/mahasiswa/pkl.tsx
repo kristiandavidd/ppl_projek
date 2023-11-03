@@ -81,7 +81,7 @@ export default function Pkl() {
   };
 
   return (
-    <EmptyLayout pageTitle="Generate Akun Baru">
+    <EmptyLayout pageTitle="Pkl">
       <div className="flex w-full min-h-screen backdrop-blur-3xl">
         <Sidebar data={userData} />
         <div className="w-full pb-16 p-10">
