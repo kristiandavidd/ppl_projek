@@ -16,8 +16,16 @@ const profileData = {
             title: 'Jalur Masuk',
             value: 'SBMPTN'
         },
+        {
+            title: 'Status',
+            value: 'Aktif'
+        },
     ],
     rightMhs: [
+        {
+            title: 'Dosen Wali',
+            value: 'Andi Kurnia'
+        },
         {
             title: 'Nomor Telepon',
             value: '081234567890'

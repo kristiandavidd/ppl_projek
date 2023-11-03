@@ -25,6 +25,14 @@ export const profileDataMerge = {
             value: 'SBMPTN'
         },
         {
+            title: 'Status',
+            value: 'Aktif'
+        },
+        {
+            title: 'Dosen Wali',
+            value: 'Andi Kurnia'
+        },
+        {
             title: 'Nomor Telepon',
             value: '081234567890'
         },

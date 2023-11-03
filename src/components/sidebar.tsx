@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 import { sidebarData } from "@/config/sidebar_config";
 import NavButton from "./nav_button";
 import { UserCircle } from "tabler-icons-react";
@@ -39,9 +40,11 @@ export default function Sidebar({ data }: userProps) {
         </ul>
       </div>
       <div className="mt-10">
-        <Button color="white" className=" flex items-center">
-          <FaSignOutAlt className="mr-2" /> Logout
-        </Button>
+        <a href="/">
+          <Button color="white" className=" flex items-center">
+            <FaSignOutAlt className="mr-2" /> Logout
+          </Button>
+        </a>
       </div>
     </div>
   );

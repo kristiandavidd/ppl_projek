@@ -22,21 +22,23 @@ export default function DataDoswal() {
   const [age, setAge] = React.useState("");
   const [uploadedFileName, setUploadedFileName] = React.useState(null);
 
-  const handleFileUpload = (event : any) => {
+  const handleFileUpload = (event: any) => {
     const file = event.target.files[0];
     if (file) {
       const fileName = file.name;
       const fileExtension = fileName.split(".").pop();
       const fileSize = file.size;
-  
+
       const maxFileSize = 50 * 1024 * 1024;
-  
+
       if (
         fileExtension.toLowerCase() !== "csv" &&
         fileExtension.toLowerCase() !== "xlsx" &&
         fileExtension.toLowerCase() !== "xls"
       ) {
-        alert("Hanya file dengan format CSV, XLSX, atau XLS yang dapat diunggah!");
+        alert(
+          "Hanya file dengan format CSV, XLSX, atau XLS yang dapat diunggah!"
+        );
         event.target.value = null; // Reset input file
         setUploadedFileName(null);
       } else if (fileSize > maxFileSize) {
@@ -48,23 +50,25 @@ export default function DataDoswal() {
       }
     }
   };
-  
-  const handleDrop = (event : any) => {
+
+  const handleDrop = (event: any) => {
     event.preventDefault();
     const file = event.dataTransfer.files[0];
     if (file) {
       const fileName = file.name;
       const fileExtension = fileName.split(".").pop();
       const fileSize = file.size;
-  
+
       const maxFileSize = 50 * 1024 * 1024;
-  
+
       if (
         fileExtension.toLowerCase() !== "csv" &&
         fileExtension.toLowerCase() !== "xlsx" &&
         fileExtension.toLowerCase() !== "xls"
       ) {
-        alert("Hanya file dengan format CSV, XLSX, atau XLS yang dapat diunggah!");
+        alert(
+          "Hanya file dengan format CSV, XLSX, atau XLS yang dapat diunggah!"
+        );
         setUploadedFileName(null);
       } else if (fileSize > maxFileSize) {
         alert("Ukuran file terlalu besar. Maksimal ukuran file adalah 50 MB.");
@@ -74,11 +78,11 @@ export default function DataDoswal() {
       }
     }
   };
-  
-  const handleDragOver = (event : any) => {
+
+  const handleDragOver = (event: any) => {
     event.preventDefault();
   };
-  
+
   return (
     <EmptyLayout pageTitle="Generate Akun Baru">
       <div className="flex w-full min-h-screen backdrop-blur-3xl">
@@ -98,17 +102,31 @@ export default function DataDoswal() {
                   <Input color="blue" label="Nama Lengkap" />
                 </div>
                 <div className="mb-7">
-                  <Input color="blue" label="Angkatan" />
+                  <Select label="Angkatan" color="blue">
+                    <Option value="2010">2010</Option>
+                    <Option value="2011">2011</Option>
+                    <Option value="2012">2012</Option>
+                    <Option value="2013">2013</Option>
+                    <Option value="2014">2014</Option>
+                    <Option value="2015">2015</Option>
+                    <Option value="2016">2016</Option>
+                    <Option value="2017">2017</Option>
+                    <Option value="2018">2018</Option>
+                    <Option value="2020">2020</Option>
+                    <Option value="2021">2021</Option>
+                    <Option value="2022">2022</Option>
+                    <Option value="2023">2023</Option>
+                  </Select>
                 </div>
                 <div className="mb-7">
                   <Select label="Status" color="blue">
-                    <Option>Aktif</Option>
-                    <Option>Cuti</Option>
-                    <Option>Mangkir</Option>
-                    <Option>Drop Out</Option>
-                    <Option>Undur Diri</Option>
-                    <Option>Lulus</Option>
-                    <Option>Meninggal Dunia</Option>
+                    <Option value="Aktif">Aktif</Option>
+                    <Option value="Cuti">Cuti</Option>
+                    <Option value="Mangkir">Mangkir</Option>
+                    <Option value="Drop Out">Drop Out</Option>
+                    <Option value="Undur Diri">Undur Diri</Option>
+                    <Option value="Lulus">Lulus</Option>
+                    <Option value="Meninggal Dunia">Meninggal Dunia</Option>
                   </Select>
                 </div>
 
