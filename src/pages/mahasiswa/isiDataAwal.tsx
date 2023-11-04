@@ -1,10 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable @next/next/no-html-link-for-pages */
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, ChangeEvent } from "react";
 import { EmptyLayout } from "@/components/layout";
 import { FaSignOutAlt } from "react-icons/fa";
-import UploadFile from "@/components/uploadFile";
-import axios from "axios";
 import {
   Card,
   CardBody,
@@ -20,115 +18,57 @@ import {
   Avatar,
 } from "@material-tailwind/react";
 import Head from "next/head";
+import { provinsi } from "@/config/provinsi";
+import { kabupatenKota } from "@/config/kabupatenKota";
 
 export default function IsiDataAwal() {
-  const userData = {
-    role: "operator",
-    name: "Mario Susanti",
-    idNumber: "199603032022041005",
-  };
   const [image, setImage] = React.useState(null);
   const [email, setEmail] = React.useState("");
   const [openPopover, setOpenPopover] = React.useState(false);
   const [openPopover2, setOpenPopover2] = React.useState(false);
-  const [selectedProvince, setSelectedProvince] = useState(null);
+  const [province, setProvinces] = useState("");
+  const [cities, setCities] = useState("");
 
-  // Fungsi untuk mengubah properti selectedProvince saat pengguna memilih provinsi
-  const handleProvinceChange = async (event) => {
-    const selectedProvinceId = event.target.value;
-    const selectedProvince = provinces.find(
-      (province) => province.id === selectedProvinceId
-    );
-    setSelectedProvince(selectedProvince);
+  const handleProvinceChange = (e: { target: { value: any; }; }) => {
+    const provinceId = e.target.value;
+    console.log(provinceId);
+    // const provinceId = e.target;
+    setProvinces(provinceId);
+    setCities("");
+    setCities(cities);
+    console.log(cities);
+  };
   
-    if (selectedProvinceId) {
-      const citiesData = await getCities(selectedProvinceId);
-      setCities(citiesData);
-    } else {
-      setCities([]);
-    }
-  };
+  
 
-  const triggers = {
-    onMouseEnter: () => setOpenPopover(true),
-    onMouseLeave: () => setOpenPopover(false),
-  };
-  const triggers2 = {
-    onMouseEnter: () => setOpenPopover2(true),
-    onMouseLeave: () => setOpenPopover2(false),
-  };
-
-  const onChange = ({ target }: React.ChangeEvent<HTMLInputElement>) =>
-    setEmail(target.value);
-
-
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  const handleImageClick = () => {
-    inputRef.current?.click();
-  };
-  const handleImageChange = (event: any) => {
-    const file = event.target.files[0];
-    if (file) {
-      setImage(event.target.files[0]);
-    } else {
-      // Menetapkan nilai image kembali ke nilai sebelumnya jika tidak ada gambar yang dipilih
-      if (!image) {
-        setImage(null);
-      }
-    }
-  };
-
-  // Fungsi untuk mendapatkan data provinsi dari Dukcapil
-  const getProvinces = async () => {
-    try {
-      const response = await axios.get(
-        `http://api.binderbyte.com/wilayah/provinsi`
-      );
-      return response.data;
-    } catch (error) {
-      console.error("Error fetching provinces: ", error);
-      return [];
-    }
-  };
-
-  // Fungsi untuk mendapatkan data kab/kota dari Dukcapil berdasarkan id provinsi
-  const getCities = async (provinceId) => {
-    try {
-      const response = await axios.get(
-        `http://api.binderbyte.com/wilayah/kabupaten?id_provinsi=${provinceId}`
-      );
-      return response.data;
-    } catch (error) {
-      console.error("Error fetching cities: ", error);
-      return [];
-    }
-  };
-
-  // Menggunakan useEffect untuk mendapatkan data provinsi saat komponen dimuat
-  useEffect(() => {
-    const fetchProvinces = async () => {
-      const data = await getProvinces();
-      setProvinces(data);
+    const triggers = {
+      onMouseEnter: () => setOpenPopover(true),
+      onMouseLeave: () => setOpenPopover(false),
     };
-
-    fetchProvinces();
-  }, []);
-
-  useEffect(() => {
-    const fetchCities = async () => {
-      if (selectedProvince) {
-        const data = await getCities(selectedProvince);
-        setCities(data);
+    const triggers2 = {
+      onMouseEnter: () => setOpenPopover2(true),
+      onMouseLeave: () => setOpenPopover2(false),
+    };
+  
+    const onChange = ({ target }: React.ChangeEvent<HTMLInputElement>) =>
+      setEmail(target.value);
+  
+    const inputRef = useRef<HTMLInputElement>(null);
+  
+    const handleImageClick = () => {
+      inputRef.current?.click();
+    };
+    const handleImageChange = (event: any) => {
+      const file = event.target.files[0];
+      if (file) {
+        setImage(event.target.files[0]);
+      } else {
+        // Menetapkan nilai image kembali ke nilai sebelumnya jika tidak ada gambar yang dipilih
+        if (!image) {
+          setImage(null);
+        }
       }
     };
-
-    fetchCities();
-  }, [selectedProvince]);
-
-  // Dalam komponen, Anda dapat menggunakan fungsi-fungsi tersebut untuk mendapatkan data provinsi dan kab/kota
-  const [provinces, setProvinces] = useState([]);
-  const [cities, setCities] = useState([]);
 
   return (
     <>
@@ -247,7 +187,7 @@ export default function IsiDataAwal() {
                               <Typography
                                 variant="small"
                                 color="gray"
-                                className="mt-2 flex items-center gap-1 font-normal"
+                                className="flex items-center gap-1 font-normal"
                               >
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
@@ -286,7 +226,6 @@ export default function IsiDataAwal() {
                             type="number"
                             label="No. Handphone"
                             inputMode="numeric"
-                            className=""
                           />
 
                           <Head>
@@ -317,7 +256,7 @@ export default function IsiDataAwal() {
                               <Typography
                                 variant="small"
                                 color="gray"
-                                className="mt-2 flex items-center gap-1 font-normal"
+                                className="flex items-center gap-1 font-normal"
                               >
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
@@ -367,20 +306,43 @@ export default function IsiDataAwal() {
                             color="blue"
                             onChange={handleProvinceChange}
                           >
-                            {provinces.map((province) => (
-                              <Option key={province.id} value={province.id}>
-                                {province.name}
+                            {provinsi.map((provinsi) => (
+                              <Option key={provinsi.id} value={provinsi.id}>
+                                {console.log(provinsi.id)}
+                                {provinsi.name}
                               </Option>
                             ))}
                           </Select>
                         </div>
                         <div className="mb-7">
                           <Select label="Kab/Kota" color="blue">
-                            {cities.map((city) => (
-                              <Option key={city.id} value={city.id}>
-                                {city.name}
-                              </Option>
-                            ))}
+                            {cities &&
+                              cities.map(
+                                (kabupatenKota: {
+                                  id: string;
+                                  name:
+                                    | string
+                                    | number
+                                    | boolean
+                                    | React.ReactElement<
+                                        any,
+                                        | string
+                                        | React.JSXElementConstructor<any>
+                                      >
+                                    | Iterable<React.ReactNode>
+                                    | React.ReactPortal
+                                    | React.PromiseLikeOfReactNode
+                                    | null
+                                    | undefined;
+                                }) => (
+                                  <Option
+                                    key={kabupatenKota.id}
+                                    value={kabupatenKota.id}
+                                  >
+                                    {kabupatenKota.name}
+                                  </Option>
+                                )
+                              )}
                           </Select>
                         </div>
                       </div>
