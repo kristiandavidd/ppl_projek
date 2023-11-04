@@ -47,7 +47,7 @@ const TabelMahasiswa = ({ mhsValidasi }: TabelMahasiswaProps) => {
                   {data[column]}
                 </td>
               ))}
-              <td className='flex justify-center'>
+              <td className='flex justify-center py-2'>
                 <Button
                   className='bg-blue-500 hover-bg-blue-700 text-white py-2 px-4 rounded'
                   onClick={() => openModal(data)}
