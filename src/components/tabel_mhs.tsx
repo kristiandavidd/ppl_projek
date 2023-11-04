@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ModalValidasi from './modalValidasi';
+import { Button } from '@material-tailwind/react';
 
 interface MahasiswaData {
   NIM: string;
@@ -47,12 +48,12 @@ const TabelMahasiswa = ({ mhsValidasi }: TabelMahasiswaProps) => {
                 </td>
               ))}
               <td className='flex justify-center'>
-                <button
+                <Button
                   className='bg-blue-500 hover-bg-blue-700 text-white py-2 px-4 rounded'
                   onClick={() => openModal(data)}
                 >
                   Validasi
-                </button>
+                </Button>
               </td>
             </tr>
           ))}

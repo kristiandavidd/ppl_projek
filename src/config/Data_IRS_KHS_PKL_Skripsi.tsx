@@ -80,16 +80,18 @@ export const Skripsi =  [
     Nama: 'Naufal Alif',
     Semester: '5',
     Angkatan: '2021',
-    Status_Skripsi: 'Belum Ambil',
-    Nilai_Skripsi: ''
+    Status: 'Belum Ambil',
+    Nilai: '',
+    Lama_Studi: '',
+    Tanggal_Lulus: ''
   },
   {
     NIM: '24060121120001',
     Nama: 'Purnomo Cahyo',
     Semester: '5',
     Angkatan: '2021',
-    Status_Skripsi: 'Belum Ambil',
-    Nilai_Skripsi: '',
+    Status: 'Belum Ambil',
+    Nilai: '',
     Lama_Studi: '',
     Tanggal_Lulus: ''
   },
@@ -98,8 +100,8 @@ export const Skripsi =  [
     Nama: 'Sukayo Baka',
     Semester: '3',
     Angkatan: '2022',
-    Status_Skripsi: 'Belum Ambil',
-    Nilai_Skripsi: '',
+    Status: 'Belum Ambil',
+    Nilai: '',
     Lama_Studi: '',
     Tanggal_Lulus: ''
   },
@@ -108,8 +110,8 @@ export const Skripsi =  [
     Nama: 'Miss Kanthanaporn Putsee',
     Semester: '7',
     Angkatan: '2020',
-    Status_Skripsi: 'Sedang Ambil',
-    Nilai_Skripsi: '',
+    Status: 'Sedang Ambil',
+    Nilai: '',
     Lama_Studi: '',
     Tanggal_Lulus: ''
   },
@@ -118,8 +120,8 @@ export const Skripsi =  [
     Nama: 'Miss Kanthanaporn Sr.',
     Semester: '9',
     Angkatan: '2019',
-    Status_Skripsi: 'Lulus',
-    Nilai_Skripsi: 'A',
+    Status: 'Lulus',
+    Nilai: 'A',
     Lama_Studi: '1',
     Tanggal_Lulus: '19/10/2023'
   }
@@ -131,15 +133,15 @@ export const PKL= [
     Nama: 'Naufal Alif',
     Semester: '5',
     Angkatan: '2021',
-    Status_PKL: 'Sedang Ambil',
-    Nilai_PKL: ''
+    Status: 'Sedang Ambil',
+    Nilai: ''
   },
   {
     NIM: '24060121120001',
     Nama: 'Purnomo Cahyo',
     Semester: '7',
     Angkatan: '2021',
-    Status_PKL: 'Lulus',
-    Nilai_PKL: 'B'
+    Status: 'Lulus',
+    Nilai: 'B'
   }
 ]

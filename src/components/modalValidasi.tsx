@@ -49,6 +49,7 @@ const ModalValidasi: React.FC<ModalValidasiProps> = ({ isvisible, onClose, data 
                         value={data[key]}
                         onChange={handleInputChange}
                         className="border-2 mb-3 p-2 w-full rounded-lg"
+                        disabled={(data.Status !== "Lulus")?(key === "Nilai" || key === "Tanggal_Studi" || key === "Tanggal_Lulus" || key === "Lama_Studi") : false}
                       />
                     </div>
                   );
