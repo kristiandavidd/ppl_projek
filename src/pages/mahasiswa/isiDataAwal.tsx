@@ -26,49 +26,73 @@ export default function IsiDataAwal() {
   const [email, setEmail] = React.useState("");
   const [openPopover, setOpenPopover] = React.useState(false);
   const [openPopover2, setOpenPopover2] = React.useState(false);
-  const [province, setProvinces] = useState("");
-  const [cities, setCities] = useState("");
+  const [openPopover3, setOpenPopover3] = React.useState(false);
+  const [province, setProvinces] = React.useState("");
+  interface City {
+    id: string;
+    province_id: string;
+    name: string;
+  }
 
-  const handleProvinceChange = (e: { target: { value: any; }; }) => {
-    const provinceId = e.target.value;
-    console.log(provinceId);
-    // const provinceId = e.target;
+  const [cities, setCities] = React.useState([] as City[]);
+
+  useEffect(() => {
+    const filteredCities = kabupatenKota[province as unknown as keyof typeof kabupatenKota] || [];
+    setCities(filteredCities);
+  }, [province]);
+
+
+  const handleProvinceChange = (e: string | undefined) => {
+    if (e) {
+      // handle the case where e is a string
+       // console.log("Event:", e);
+    const provinceId = e;
     setProvinces(provinceId);
-    setCities("");
-    setCities(cities);
-    console.log(cities);
+    const filteredCities = kabupatenKota[provinceId as unknown as keyof typeof kabupatenKota] || [];
+    setCities(filteredCities);
+    // console.log("Cities:", cities);
+    // console.log(filteredCities);
+    } else {
+      // handle the case where e is undefined
+      setCities([]);
+    }
   };
   
   
+  const triggers = {
+    onMouseEnter: () => setOpenPopover(true),
+    onMouseLeave: () => setOpenPopover(false),
+  };
+  const triggers2 = {
+    onMouseEnter: () => setOpenPopover2(true),
+    onMouseLeave: () => setOpenPopover2(false),
+  };
+  const triggers3 = {
+    onMouseEnter: () => setOpenPopover3(true),
+    onMouseLeave: () => setOpenPopover3(false),
+  };
 
-    const triggers = {
-      onMouseEnter: () => setOpenPopover(true),
-      onMouseLeave: () => setOpenPopover(false),
-    };
-    const triggers2 = {
-      onMouseEnter: () => setOpenPopover2(true),
-      onMouseLeave: () => setOpenPopover2(false),
-    };
-  
-    const onChange = ({ target }: React.ChangeEvent<HTMLInputElement>) =>
-      setEmail(target.value);
-  
-    const inputRef = useRef<HTMLInputElement>(null);
-  
-    const handleImageClick = () => {
-      inputRef.current?.click();
-    };
-    const handleImageChange = (event: any) => {
-      const file = event.target.files[0];
-      if (file) {
-        setImage(event.target.files[0]);
-      } else {
-        // Menetapkan nilai image kembali ke nilai sebelumnya jika tidak ada gambar yang dipilih
-        if (!image) {
-          setImage(null);
-        }
+  const onChange = ({ target }: React.ChangeEvent<HTMLInputElement>) =>
+    setEmail(target.value);
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleImageClick = () => {
+    inputRef.current?.click();
+  };
+  const handleImageChange = (event: any) => {
+    const file = event.target.files[0];
+    if (file) {
+      setImage(event.target.files[0]);
+    } else {
+      // Menetapkan nilai image kembali ke nilai sebelumnya jika tidak ada gambar yang dipilih
+      if (!image) {
+        setImage(null);
       }
-    };
+    }
+  };
+
+  
 
   return (
     <>
@@ -131,7 +155,7 @@ export default function IsiDataAwal() {
                         <div className="mb-7">
                           <Input color="blue" label="NIM" disabled />
                         </div>
-                      
+
                         <div className="mb-7">
                           <Input color="blue" label="Nama Lengkap" />
                         </div>
@@ -309,42 +333,62 @@ export default function IsiDataAwal() {
                           >
                             {provinsi.map((provinsi) => (
                               <Option key={provinsi.id} value={provinsi.id}>
-                                {console.log(provinsi.id)}
                                 {provinsi.name}
                               </Option>
                             ))}
                           </Select>
                         </div>
-                        <div className="mb-7">
-                          <Select label="Kab/Kota" color="blue">
-                            {cities &&
-                              cities.map(
-                                (kabupatenKota: {
-                                  id: string;
-                                  name:
-                                    | string
-                                    | number
-                                    | boolean
-                                    | React.ReactElement<
-                                        any,
-                                        | string
-                                        | React.JSXElementConstructor<any>
-                                      >
-                                    | Iterable<React.ReactNode>
-                                    | React.ReactPortal
-                                    | React.PromiseLikeOfReactNode
-                                    | null
-                                    | undefined;
-                                }) => (
-                                  <Option
-                                    key={kabupatenKota.id}
-                                    value={kabupatenKota.id}
-                                  >
-                                    {kabupatenKota.name}
-                                  </Option>
-                                )
-                              )}
+                        <div className="mb-7 flex justify-end">
+                          <Select
+                            label="Kab/Kota"
+                            color="blue"
+                           disabled={cities.length === 0}
+                          >
+                            {cities.map((city) => (
+                              <Option key={city.id} value={city.id}>
+                                {city.name}
+                              </Option>
+                            ))}
                           </Select>
+                          <Popover
+                            open={openPopover3}
+                            handler={setOpenPopover3}
+                          >
+                            <PopoverHandler {...triggers3}>
+                              <Typography
+                                variant="small"
+                                color="gray"
+                                className="flex items-center gap-1 font-normal"
+                              >
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  viewBox="0 0 24 24"
+                                  fill="currentColor"
+                                  className="h-5 w-5 ml-3"
+                                >
+                                  <path
+                                    fillRule="evenodd"
+                                    d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 01.67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 11-.671-1.34l.041-.022zM12 9a.75.75 0 100-1.5.75.75 0 000 1.5z"
+                                    clipRule="evenodd"
+                                  />
+                                </svg>
+                              </Typography>
+                            </PopoverHandler>
+                            <PopoverContent
+                              {...triggers3}
+                              className="z-50 max-w-[24rem]"
+                            >
+                              <div className="mb-2 flex items-center justify-between gap-4">
+                                <Typography
+                                  variant="small"
+                                  color="gray"
+                                  className="font-normal text-blue-gray-500"
+                                >
+                                  Pilih provinsi terlebih dahulu untuk menampilkan daftar kabupaten/kota
+                                </Typography>
+                              </div>
+                            </PopoverContent>
+                          </Popover>
                         </div>
                       </div>
                     </div>
