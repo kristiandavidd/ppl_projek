@@ -91,20 +91,20 @@ export default function IsiDataAwal() {
                 <CardBody>
                   <form>
                     <div className="mt-6 flex">
-                      <div className="w-1/4">
+                      <div className="w-1/3">
                         <div>
                           <div>
                             {image ? (
                               <img
                                 src={URL.createObjectURL(image)}
                                 alt="upload image"
-                                className="w-24 h-24 md:w-28 md:h-28 lg:w-40 lg:h-40 mx-auto object-cover rounded-full"
+                                className="w-24 h-24 md:w-28 md:h-28 lg:w-52 lg:h-52 mx-auto object-cover rounded-full"
                               />
                             ) : (
                               <img
                                 src="../../default_profile.jpg"
                                 alt="upload image"
-                                className="w-24 h-24 md:w-28 md:h-28 lg:w-40 lg:h-40 mx-auto object-cover rounded-full"
+                                className="w-24 h-24 md:w-28 md:h-28 lg:w-52 lg:h-52 mx-auto object-cover rounded-full"
                               />
                             )}
                             <input
@@ -131,6 +131,7 @@ export default function IsiDataAwal() {
                         <div className="mb-7">
                           <Input color="blue" label="NIM" disabled />
                         </div>
+                      
                         <div className="mb-7">
                           <Input color="blue" label="Nama Lengkap" />
                         </div>
