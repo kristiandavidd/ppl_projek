@@ -85,6 +85,41 @@ export default function IsiDataAwal() {
       }
     }
   };
+  
+  const triggers = {
+    onMouseEnter: () => setOpenPopover(true),
+    onMouseLeave: () => setOpenPopover(false),
+  };
+  const triggers2 = {
+    onMouseEnter: () => setOpenPopover2(true),
+    onMouseLeave: () => setOpenPopover2(false),
+  };
+  const triggers3 = {
+    onMouseEnter: () => setOpenPopover3(true),
+    onMouseLeave: () => setOpenPopover3(false),
+  };
+
+  const onChange = ({ target }: React.ChangeEvent<HTMLInputElement>) =>
+    setEmail(target.value);
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleImageClick = () => {
+    inputRef.current?.click();
+  };
+  const handleImageChange = (event: any) => {
+    const file = event.target.files[0];
+    if (file) {
+      setImage(event.target.files[0]);
+    } else {
+      // Menetapkan nilai image kembali ke nilai sebelumnya jika tidak ada gambar yang dipilih
+      if (!image) {
+        setImage(null);
+      }
+    }
+  };
+
+  
 
   
 
@@ -117,11 +152,13 @@ export default function IsiDataAwal() {
                                 src={URL.createObjectURL(image)}
                                 alt="upload image"
                                 className="w-24 h-24 md:w-28 md:h-28 lg:w-52 lg:h-52 mx-auto object-cover rounded-full"
+                                className="w-24 h-24 md:w-28 md:h-28 lg:w-52 lg:h-52 mx-auto object-cover rounded-full"
                               />
                             ) : (
                               <img
                                 src="../../default_profile.jpg"
                                 alt="upload image"
+                                className="w-24 h-24 md:w-28 md:h-28 lg:w-52 lg:h-52 mx-auto object-cover rounded-full"
                                 className="w-24 h-24 md:w-28 md:h-28 lg:w-52 lg:h-52 mx-auto object-cover rounded-full"
                               />
                             )}
@@ -149,6 +186,7 @@ export default function IsiDataAwal() {
                         <div className="mb-7">
                           <Input color="blue" label="NIM" disabled />
                         </div>
+
 
                         <div className="mb-7">
                           <Input color="blue" label="Nama Lengkap" />

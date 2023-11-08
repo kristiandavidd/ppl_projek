@@ -1,5 +1,5 @@
 export const kabupatenKota = {
-    '11': [
+    11: [
         {
           id: "1101",
           province_id: "11",
@@ -116,7 +116,7 @@ export const kabupatenKota = {
           name: "KOTA SUBULUSSALAM"
         }
       ],
-    '12' : [
+    12 : [
         {
           id: "1201",
           province_id: "12",
@@ -283,7 +283,7 @@ export const kabupatenKota = {
           name: "KOTA GUNUNGSITOLI"
         }
       ],
-      '13' : [
+      13 : [
         {
           "id": "1301",
           "province_id": "13",
