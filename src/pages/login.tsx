@@ -71,7 +71,7 @@ export default function Login() {
                                     className: "before:content-none after:content-none",
                                 }}
                             />
-                            <Button className="mt-6 bg-blue-500" fullWidth onClick={() => router.push('/mahasiswa')}>Login</Button>
+                            <Button className="mt-6 bg-blue-500" fullWidth onClick={handleSubmit}>Login</Button>
                             <Typography className="text-center mt-2">Lupa Password?
                                 <a href="#" className="text-gray-400"> Klik Disini</a> 
                             </Typography>

@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   env: {
-    BACKEND_API: "http://localhost:8080",
+    BACKEND_API: "http://localhost:4000",
     SECRET_KEY: "ppl-be-secret-key",
   },
 };
