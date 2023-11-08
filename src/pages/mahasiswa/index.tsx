@@ -8,13 +8,53 @@ import ProfileContainer from "@/components/profileContainer";
 import { profileData } from "@/config/profile_config";
 import BottomProfile from "@/components/bottom_profile";
 import { profileDataMerge } from "@/config/profile_data_merge";
+import useSWR from "swr";
+import { useEffect, useState } from "react";
+import { getCookie, setCookie } from "cookies-next";
+import axios from "axios";
 
 export default function Home() {
+  const [img, setImg] = useState(null); // null ganti dengan file jpg
+  const [alamat, setAlamat] = useState("");
+  const [provinsi, setProvinsi] = useState("");
+  const [kabupaten, setKabupaten] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+
+  // Success message state
+  const [success, setSuccess] = useState(null);
+  const [message, setMessage] = useState(null);
+
+  // Ambil data mahasiswa
+  const { data: dataMhs,error: errorMhs} = useSWR(
+    `${process.env.BACKEND_API}/profile`,
+    //fetcherWithToken
+  )
+
+  // change image handler
+  // const changeImageHandler = (e: any) => {
+  //   setImg(URL.createObjectURL(e.target.files[0])
+  // };
+
+  useEffect(() => {
+    if (dataMhs) {
+      // if (dataMhs.kodeKab) {
+      //   const provCode = dataMhs.kodeKab.substring(0, 2);
+      //   setProvinsi(provCode);
+      //   setKabupaten(dataMhs.kodeKab);
+      // }
+      setAlamat(dataMhs.alamat);
+      setEmail(dataMhs.email);
+      setPhone(dataMhs.phone);
+    }
+  }, [dataMhs]);
+
   const userData = {
     role: "mhs",
-    name: "Susanto Situmeang",
-    idNumber: "24060121130092",
+    name: dataMhs? dataMhs.nama : "",
+    idNumber: dataMhs ? dataMhs.nim : "",
   };
+
   return (
     <EmptyLayout pageTitle="Dashboard">
       <div className="flex w-full min-h-screen h-full backdrop-blur-3xl">

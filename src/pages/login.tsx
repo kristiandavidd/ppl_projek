@@ -48,6 +48,19 @@ export default function Login() {
                 <div className="h-1/2"></div>
                 <div className="flex-col flex items-center justify-center">
                     <div className="absolute justify-center bg-white align-middle shadow-lg shadow-blue-500/20  z-30 px-14 py-5 border-solid border-2 w-2/5 rounded-lg">
+                    {/* If error is true, show error message */}
+                    {error && (
+                                    <div
+                                    className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+                                    role="alert"
+                                    >
+                                    <strong className="font-bold">Login gagal. </strong>
+                                    <span className="block sm:inline">
+                                        Username atau password salah.
+                                    </span>
+                                    </div>
+                                )
+                    }
                         <Typography variant="h2" className="mt-3 text-center">Login</Typography>
                         <form className="flex flex-col">
                             <Typography variant="paragraph" className="mt-6">Email</Typography>
@@ -58,6 +71,13 @@ export default function Login() {
                                 className="h-10 !border-t-blue-gray-200 focus:!border-t-gray-900 w-80"
                                 labelProps={{
                                     className: "before:content-none after:content-none",
+                                }}
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                onKeyDown={(e) => {
+                                    if (e.key === "Enter") {
+                                        handleSubmit(e);
+                                    }
                                 }}
                                 />
                             <Typography variant="paragraph" className="mt-4">Password</Typography>
@@ -70,8 +90,16 @@ export default function Login() {
                                 labelProps={{
                                     className: "before:content-none after:content-none",
                                 }}
+                                id="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                onKeyDown={(e) => {
+                                    if (e.key === "Enter") {
+                                    handleSubmit(e);
+                                    }
+                                }}
                             />
-                            <Button className="mt-6 bg-blue-500" fullWidth onClick={() => router.push('/mahasiswa')}>Login</Button>
+                            <Button className="mt-6 bg-blue-500" fullWidth onClick={handleSubmit}>Login</Button>
                             <Typography className="text-center mt-2">Lupa Password?
                                 <a href="#" className="text-gray-400"> Klik Disini</a> 
                             </Typography>
