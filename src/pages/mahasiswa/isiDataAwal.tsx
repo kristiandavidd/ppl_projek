@@ -18,8 +18,6 @@ import {
   Avatar,
 } from "@material-tailwind/react";
 import Head from "next/head";
-import { provinsi } from "@/config/provinsi";
-import { kabupatenKota } from "@/config/kabupatenKota";
 
 export default function IsiDataAwal() {
   const [image, setImage] = React.useState(null);
@@ -27,36 +25,32 @@ export default function IsiDataAwal() {
   const [openPopover, setOpenPopover] = React.useState(false);
   const [openPopover2, setOpenPopover2] = React.useState(false);
   const [openPopover3, setOpenPopover3] = React.useState(false);
-  const [province, setProvinces] = React.useState("");
-  interface City {
-    id: string;
-    province_id: string;
-    name: string;
-  }
+  const [provinces, setProvinces] = useState([]);
+  const [cities, setCities] = useState([]);
+  const [selectedProvince, setSelectedProvince] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
 
-  const [cities, setCities] = React.useState([] as City[]);
+  const handleProvinceChange = (e: ChangeEvent<HTMLSelectElement>) => {
+      const provinceId = e;
+      setSelectedProvince(provinceId);
+      setSelectedCity(""); // Reset pilihan kabupaten/kota
+      fetchCities(provinceId);
+    };  
+    
+    useEffect(() => {
+      fetch("https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json")
+        .then((response) => response.json())
+        .then((data) => setProvinces(data));
+    }, []);
 
-  useEffect(() => {
-    const filteredCities = kabupatenKota[province as unknown as keyof typeof kabupatenKota] || [];
-    setCities(filteredCities);
-  }, [province]);
-
-
-  const handleProvinceChange = (e: string | undefined) => {
-    if (e) {
-      // handle the case where e is a string
-       // console.log("Event:", e);
-    const provinceId = e;
-    setProvinces(provinceId);
-    const filteredCities = kabupatenKota[provinceId as unknown as keyof typeof kabupatenKota] || [];
-    setCities(filteredCities);
-    // console.log("Cities:", cities);
-    // console.log(filteredCities);
-    } else {
-      // handle the case where e is undefined
-      setCities([]);
-    }
-  };
+    const fetchCities = (provinceId) => {
+      fetch(`https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${provinceId}.json`)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data); // Tambahkan log ini
+          setCities(data);
+        });
+    };    
   
   
   const triggers = {
@@ -326,24 +320,22 @@ export default function IsiDataAwal() {
                           <Input color="blue" label="Alamat" />
                         </div>
                         <div className="mb-7">
-                          <Select
-                            label="Provinsi"
-                            color="blue"
-                            onChange={handleProvinceChange}
-                          >
-                            {provinsi.map((provinsi) => (
-                              <Option key={provinsi.id} value={provinsi.id}>
-                                {provinsi.name}
+                          <Select label="Provinsi" color="blue" onChange={(e) => handleProvinceChange(e)}>
+                            {provinces.length > 0 ? (
+                              provinces.map((province) => (
+                                <Option key={province.id} value={province.id}>
+                                  {province.name}
+                                </Option>
+                              ))
+                            ) : (
+                              <Option value="" disabled>
+                                Memuat...
                               </Option>
-                            ))}
+                            )}
                           </Select>
-                        </div>
-                        <div className="mb-7 flex justify-end">
-                          <Select
-                            label="Kab/Kota"
-                            color="blue"
-                           disabled={cities.length === 0}
-                          >
+                          </div>
+                          <div className="mb-7 flex justify-end">
+                          <Select label="Kab/Kota" color="blue" onChange={(e) => setSelectedCity(e)}>
                             {cities.map((city) => (
                               <Option key={city.id} value={city.id}>
                                 {city.name}
