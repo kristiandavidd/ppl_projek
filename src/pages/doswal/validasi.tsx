@@ -16,7 +16,7 @@ export default function Validasi() {
 
     const [selectedData, setSelectedData] = useState(null);
 
-    const handleButtonValidasiClick = (data) => {
+    const handleButtonValidasiClick = (data: any) => {
         if (selectedData === data) {
         setSelectedData(null);
         } else {

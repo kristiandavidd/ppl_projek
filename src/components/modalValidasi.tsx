@@ -17,6 +17,7 @@ type ModalValidasiProps = {
 
 const ModalValidasi: React.FC<ModalValidasiProps> = ({ isvisible, onClose, data }) => {
   const [editedData, setEditedData] = useState<MahasiswaData>(data); // Initialize with the entire data object
+  const [selectedStatus, setSelectedStatus] = useState(data.Status);
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -25,6 +26,14 @@ const ModalValidasi: React.FC<ModalValidasiProps> = ({ isvisible, onClose, data 
       [name]: value,
     }));
   };
+
+  const handleStatusChange = (e: any) => {
+    setSelectedStatus(e);
+    setEditedData((prevData) => ({
+      ...prevData,
+      Status: e,
+    }));
+  }
 
   if (!isvisible) {
     return null;
@@ -65,7 +74,13 @@ const ModalValidasi: React.FC<ModalValidasiProps> = ({ isvisible, onClose, data 
                     return (
                       <div key={key} className="mb-3">
                         <label className="block text-sm font-bold text-gray-700">{key}</label>
-                        <Select variant="outlined" label="" value={data.Status} name="Status">
+                        <Select 
+                          variant="outlined" 
+                          label="" 
+                          value={data.Status} 
+                          name="Status"
+                          onChange={(e) => handleStatusChange(e)}
+                          >
                           <Option value="Belum Ambil">Belum Ambil</Option>
                           <Option value="Sedang Ambil">Sedang Ambil</Option>
                           <Option value="Lulus">Lulus</Option>
