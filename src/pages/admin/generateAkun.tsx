@@ -12,8 +12,15 @@ import {
   Select,
   Option,
 } from "@material-tailwind/react";
+import { getCookie } from "cookies-next";
+
+const token = getCookie("accessToken");
 
 export default function DataDoswal() {
+  const axios = require('axios').default;
+  const fetcherWithToken = async (url : any, headers: any) =>
+    await fetch(url, {method: "GET", headers}).then((res : any) => res.json());
+  
   const userData = {
     role: "operator",
     name: "Mario Susanti",
@@ -22,6 +29,15 @@ export default function DataDoswal() {
   const [age, setAge] = React.useState("");
   const [uploadedFileName, setUploadedFileName] = React.useState(null);
 
+  const handleGenerate = (e:any) => {
+    // Generate account to BACKEND_API/generate
+    // Set the request header to x-access-token with token
+    // Set the request body to name, nim, angkatan, status
+    // If success, show success message
+    // If failed, show error message
+    e.preventDefault();
+    
+  }
   const handleFileUpload = (event: any) => {
     const file = event.target.files[0];
     if (file) {
