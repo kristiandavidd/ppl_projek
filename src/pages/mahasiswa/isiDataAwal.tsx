@@ -30,7 +30,7 @@ export default function IsiDataAwal() {
   const [selectedProvince, setSelectedProvince] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
 
-  const handleProvinceChange = (e: ChangeEvent<HTMLSelectElement>) => {
+  const handleProvinceChange = (e : any) => {
       const provinceId = e;
       setSelectedProvince(provinceId);
       setSelectedCity(""); // Reset pilihan kabupaten/kota
@@ -43,7 +43,7 @@ export default function IsiDataAwal() {
         .then((data) => setProvinces(data));
     }, []);
 
-    const fetchCities = (provinceId) => {
+    const fetchCities = (provinceId: React.ChangeEvent<HTMLSelectElement>) => {
       fetch(`https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${provinceId}.json`)
         .then((response) => response.json())
         .then((data) => {
@@ -322,7 +322,7 @@ export default function IsiDataAwal() {
                         <div className="mb-7">
                           <Select label="Provinsi" color="blue" onChange={(e) => handleProvinceChange(e)}>
                             {provinces.length > 0 ? (
-                              provinces.map((province) => (
+                              provinces.map((province : { id: string; name: string }) => (
                                 <Option key={province.id} value={province.id}>
                                   {province.name}
                                 </Option>
@@ -335,8 +335,8 @@ export default function IsiDataAwal() {
                           </Select>
                           </div>
                           <div className="mb-7 flex justify-end">
-                          <Select label="Kab/Kota" color="blue" onChange={(e) => setSelectedCity(e)}>
-                            {cities.map((city) => (
+                          <Select label="Kab/Kota" color="blue" disabled={cities.length === 0}>
+                            {cities.map((city : { id: string; name: string }) => (
                               <Option key={city.id} value={city.id}>
                                 {city.name}
                               </Option>

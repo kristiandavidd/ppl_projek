@@ -17,7 +17,12 @@ interface TabelMahasiswaProps {
 const TabelMahasiswa = ({ mhsValidasi }: TabelMahasiswaProps) => {
   const columns = Object.keys(mhsValidasi[0]).slice(0, 4);
   const [showModal, setShowModal] = useState(false);
-  const [selectedData, setSelectedData] = useState<Partial<MahasiswaData>>({});
+  const [selectedData, setSelectedData] = useState<MahasiswaData>({
+    NIM: "",
+    Nama: "",
+    Semester: "",
+    Angkatan: "",
+  });
 
   const openModal = (data: MahasiswaData) => {
     setSelectedData(data);
