@@ -38,13 +38,13 @@ export default function IsiDataAwal() {
     };  
     
     useEffect(() => {
-      fetch("https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json")
+      fetch(`${process.env.BACKEND_API}/api/provinsi`)
         .then((response) => response.json())
         .then((data) => setProvinces(data));
     }, []);
 
     const fetchCities = (provinceId: React.ChangeEvent<HTMLSelectElement>) => {
-      fetch(`https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${provinceId}.json`)
+      fetch(`${process.env.BACKEND_API}/api/kabupaten/${provinceId}`)
         .then((response) => response.json())
         .then((data) => {
           console.log(data); // Tambahkan log ini
@@ -155,12 +155,6 @@ export default function IsiDataAwal() {
                         </div>
                         <div className="mb-7">
                           <Select label="Angkatan" color="blue" disabled>
-                            <Option value="2010">2010</Option>
-                            <Option value="2011">2011</Option>
-                            <Option value="2012">2012</Option>
-                            <Option value="2013">2013</Option>
-                            <Option value="2014">2014</Option>
-                            <Option value="2015">2015</Option>
                             <Option value="2016">2016</Option>
                             <Option value="2017">2017</Option>
                             <Option value="2018">2018</Option>
@@ -322,9 +316,9 @@ export default function IsiDataAwal() {
                         <div className="mb-7">
                           <Select label="Provinsi" color="blue" onChange={(e) => handleProvinceChange(e)}>
                             {provinces.length > 0 ? (
-                              provinces.map((province : { id: string; name: string }) => (
+                              provinces.map((province : { id: string; nama: string }) => (
                                 <Option key={province.id} value={province.id}>
-                                  {province.name}
+                                  {province.nama}
                                 </Option>
                               ))
                             ) : (
@@ -336,9 +330,9 @@ export default function IsiDataAwal() {
                           </div>
                           <div className="mb-7 flex justify-end">
                           <Select label="Kab/Kota" color="blue" disabled={cities.length === 0}>
-                            {cities.map((city : { id: string; name: string }) => (
+                            {cities.map((city : { id: string; nama: string }) => (
                               <Option key={city.id} value={city.id}>
-                                {city.name}
+                                {city.nama}
                               </Option>
                             ))}
                           </Select>

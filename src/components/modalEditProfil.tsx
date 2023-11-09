@@ -26,7 +26,7 @@ export default function ModalEditProfil({
   const [selectedProvince, setSelectedProvince] = useState<string>("");
   const [selectedCity, setSelectedCity] = useState<string>("");
 
-  const handleProvinceChange = (e: ChangeEvent<HTMLSelectElement>) => {
+  const handleProvinceChange = (e: any) => {
     const provinceId = e.target.value;
     setSelectedProvince(provinceId);
     setSelectedCity(""); // Reset pilihan kabupaten/kota
@@ -35,20 +35,19 @@ export default function ModalEditProfil({
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
-    fetch("https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json")
+    fetch(`${process.env.BACKEND_API}/api/provinsi`)
       .then((response) => response.json())
       .then((data) => setProvinces(data));
   }, []);
 
-  const fetchCities = (provinceId: string) => {
-    fetch(
-      `https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${provinceId}.json`
-    )
+  const fetchCities = (provinceId: React.ChangeEvent<HTMLSelectElement>) => {
+    fetch(`${process.env.BACKEND_API}/api/kabupaten/${provinceId}`)
       .then((response) => response.json())
       .then((data) => {
+        console.log(data); // Tambahkan log ini
         setCities(data);
       });
-  };
+  };  
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -144,7 +143,7 @@ export default function ModalEditProfil({
                         {provinces.length > 0 ? (
                           provinces.map((province: any) => (
                             <option key={province.id} value={province.id}>
-                              {province.name}
+                              {province.nama}
                             </option>
                           ))
                         ) : (
@@ -164,7 +163,7 @@ export default function ModalEditProfil({
                       >
                         {cities.map((city: any) => (
                           <option key={city.id} value={city.id}>
-                            {city.name}
+                            {city.nama}
                           </option>
                         ))}
                       </select>
