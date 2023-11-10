@@ -1,18 +1,29 @@
 import React from "react";
+import { ProgIrs } from "@/config/progres_irs";
 import { EmptyLayout } from "@/components/layout";
 import Sidebar from "@/components/sidebar";
 import { Bell } from "tabler-icons-react";
+import { Pencil, Trash } from "tabler-icons-react";
 import {
   Card,
   CardBody,
   CardFooter,
   Typography,
   Button,
-  Input,
   Select,
   Option,
+  CardHeader,
+  Chip,
+  Avatar,
+  IconButton,
+  Tooltip,
+  Input,
 } from "@material-tailwind/react";
 import UploadFile from "@/components/uploadFile";
+import axios from "axios";
+import { setCookie } from "cookies-next";
+
+const TABLE_HEAD = ["Semester", "SKS", "File Scan", "Action", ""];
 
 export default function Irs() {
   const userData = {
@@ -21,22 +32,22 @@ export default function Irs() {
     idNumber: "24060121130092",
   };
   const [uploadedFileName, setUploadedFileName] = React.useState("");
+  const [semesterAktif, setSemesterAktif] = React.useState("");
+  const [sks, setSks] = React.useState("");
+  const [fileUpload, setFileUpload] = React.useState("");
 
-  const handleFileUpload = (event : any) => {
+  const handleFileUpload = (event: any) => {
     const file = event.target.files[0];
     if (file) {
+      setFileUpload(file);
       const fileName = file.name;
       const fileExtension = fileName.split(".").pop();
       const fileSize = file.size;
 
       const maxFileSize = 50 * 1024 * 1024;
 
-      if (
-        fileExtension.toLowerCase() !== "pdf" 
-      ) {
-        alert(
-          "Hanya file dengan format PDF yang dapat diunggah!"
-        );
+      if (fileExtension.toLowerCase() !== "pdf") {
+        alert("Hanya file dengan format PDF yang dapat diunggah!");
         event.target.value = ""; // Reset input file
         setUploadedFileName("");
       } else if (fileSize > maxFileSize) {
@@ -59,12 +70,8 @@ export default function Irs() {
 
       const maxFileSize = 50 * 1024 * 1024;
 
-      if (
-        fileExtension.toLowerCase() !== "pdf"
-      ) {
-        alert(
-          "Hanya file dengan format PDF yang dapat diunggah!"
-        );
+      if (fileExtension.toLowerCase() !== "pdf") {
+        alert("Hanya file dengan format PDF yang dapat diunggah!");
         setUploadedFileName("");
       } else if (fileSize > maxFileSize) {
         alert("Ukuran file terlalu besar. Maksimal ukuran file adalah 50 MB.");
@@ -77,6 +84,48 @@ export default function Irs() {
 
   const handleDragOver = (event: any) => {
     event.preventDefault();
+  };
+
+  const handleSemesterChange = (value: any) => {
+    setSemesterAktif(value);
+  };
+
+  const handleSksChange = (event: any) => {
+    setSks(event.target.value);
+    console.log(event.target.value);
+  };
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    try {
+      const formData = new FormData();
+      formData.append("semester_aktif", semesterAktif);
+      formData.append("sks", sks);
+      // formData.append("file", fileUpload);
+
+      const response = await axios.post(
+        `${process.env.BACKEND_API}/irs`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            // "x-access-token": /** token disini */
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        // Handle success, maybe show a success message
+        console.log("IRS data submitted successfully!");
+        // You can handle redirection here
+      } else {
+        // Handle errors, maybe show an error message
+        console.error("Failed to submit IRS data");
+      }
+    } catch (error) {
+      // Handle network errors or other exceptions
+      console.error("An error occurred:", error);
+    }
   };
 
   return (
@@ -92,21 +141,16 @@ export default function Irs() {
             <Card className="mt-6 w-full">
               <CardBody>
                 <div className="mb-7">
-                  <Select label="Semester Aktif" color="blue">
-                    <Option>1</Option>
-                    <Option>2</Option>
-                    <Option>3</Option>
-                    <Option>4</Option>
-                    <Option>5</Option>
-                    <Option>6</Option>
-                    <Option>7</Option>
-                    <Option>8</Option>
-                    <Option>9</Option>
-                    <Option>10</Option>
-                    <Option>11</Option>
-                    <Option>12</Option>
-                    <Option>13</Option>
-                    <Option>14</Option>
+                  <Select
+                    label="Semester Aktif"
+                    color="blue"
+                    onChange={handleSemesterChange}
+                  >
+                    {Array.from({ length: 14 }, (_, i) => (
+                      <Option key={i} value={(i + 1).toString()}>
+                        {i + 1}
+                      </Option>
+                    ))}
                   </Select>
                 </div>
 
@@ -116,23 +160,158 @@ export default function Irs() {
                     label="Jumlah SKS"
                     type="number"
                     step="1"
-                />
+                    onChange={handleSksChange}
+                  />
                 </div>
                 <div className="mt-7">
                   <label className="text-sm font-semibold">Scan IRS</label>
                 </div>
                 <UploadFile
-              handleFileUpload={handleFileUpload}
-              handleDrop={handleDrop}
-              handleDragOver={handleDragOver}
-              uploadedFileName={uploadedFileName}
-              type={".pdf"}
-              maxFileSize={"50 MB"}
-            />
+                  handleFileUpload={handleFileUpload}
+                  handleDrop={handleDrop}
+                  handleDragOver={handleDragOver}
+                  uploadedFileName={uploadedFileName}
+                  type={".pdf"}
+                  maxFileSize={"50 MB"}
+                />
               </CardBody>
               <CardFooter className="pt-0 flex justify-end">
-                <Button color="blue">Simpan Data</Button>
+                <Button color="blue" onClick={handleSubmit}>
+                  Simpan Data
+                </Button>
               </CardFooter>
+            </Card>
+          </div>
+
+          {/* Progress IRS MHS */}
+          <div className="flex w-full justify-between mt-10">
+            <h2 className="font-semibold text-lg">Progres IRS</h2>
+          </div>
+          <p className="text-sm text-gray-500">
+            Progres IRS yang telah anda lakukan
+          </p>
+          <div className="">
+            <Card className="mt-6 w-full p-10">
+              <div className="">
+                <Card className="h-full w-full">
+                  <table className="w-full min-w-max table-auto text-center">
+                    <thead>
+                      <tr>
+                        {TABLE_HEAD.map((head) => (
+                          <th
+                            key={head}
+                            className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
+                          >
+                            <Typography
+                              variant="small"
+                              color="blue-gray"
+                              className="font-normal leading-none opacity-70"
+                            >
+                              {head}
+                            </Typography>
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {ProgIrs.map(
+                        ({ Semester, SKS, File_Scan, Status }, index) => (
+                          <tr
+                            key={Semester}
+                            className="even:bg-blue-gray-50/50"
+                          >
+                            <td className="p-4">
+                              <Typography
+                                variant="small"
+                                color="blue-gray"
+                                className="font-normal"
+                              >
+                                {Semester}
+                              </Typography>
+                            </td>
+                            <td className="p-4">
+                              <Typography
+                                variant="small"
+                                color="blue-gray"
+                                className="font-normal"
+                              >
+                                {SKS}
+                              </Typography>
+                            </td>
+                            <td className="p-4">
+                              {/* <Typography
+                                variant="small"
+                                color="blue-gray"
+                                className="font-normal"
+                              >
+                                {File_Scan}
+                              </Typography> */}
+                  
+                                <Button
+                                  variant="text"
+                                  color="blue"
+                                  size="sm"
+                                  onClick={() => {
+                                    // Add your button click functionality here
+                                  }}
+                                >
+                                  Lihat File
+                                </Button>
+
+                            </td>
+                            <td className="p-4">
+                              <div className="flex gap-2 justify-center">
+                                {/* Replace Edit text with Edit icon */}
+                                <Tooltip content="Edit">
+                                  <IconButton
+                                    color="blue-gray"
+                                    size="sm"
+                                    onClick={() => {
+                                      // Add your edit functionality here
+                                    }}
+                                  >
+                                    <Pencil size={16} />
+                                  </IconButton>
+                                </Tooltip>
+
+                                {/* Replace Hapus text with Trash icon */}
+                                <Tooltip content="Hapus">
+                                  <IconButton
+                                    color="blue-gray"
+                                    size="sm"
+                                    onClick={() => {
+                                      // Add your delete functionality here
+                                    }}
+                                  >
+                                    <Trash size={16} />
+                                  </IconButton>
+                                </Tooltip>
+                              </div>
+                            </td>
+                            <td className="">
+                              <div className="w-max">
+                                <Chip
+                                  size="sm"
+                                  variant="ghost"
+                                  value={Status}
+                                  color={
+                                    Status === "Disetujui"
+                                      ? "green"
+                                      : Status === "Belum Disetujui"
+                                      ? "amber"
+                                      : "red"
+                                  }
+                                  className="text-center"
+                                />
+                              </div>
+                            </td>
+                          </tr>
+                        )
+                      )}
+                    </tbody>
+                  </table>
+                </Card>
+              </div>
             </Card>
           </div>
         </div>
