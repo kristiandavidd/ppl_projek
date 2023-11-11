@@ -193,127 +193,112 @@ export default function Irs() {
           <div className="">
             <Card className="mt-6 w-full p-10">
               <div className="">
-                <Card className="h-full w-full">
-                  <table className="w-full min-w-max table-auto text-center">
-                    <thead>
-                      <tr>
-                        {TABLE_HEAD.map((head) => (
-                          <th
-                            key={head}
-                            className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
+                <table className="w-full min-w-max table-auto text-center border rounded-xl overflow-hidden">
+                  <thead>
+                    <tr>
+                      {TABLE_HEAD.map((head) => (
+                        <th
+                          key={head}
+                          className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
+                        >
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-normal leading-none opacity-70"
                           >
+                            {head}
+                          </Typography>
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {ProgIrs.map(
+                      ({ semester_aktif, sks, file, status_konfirmasi }, index) => (
+                        <tr key={semester_aktif} className="even:bg-blue-gray-50/50">
+                          <td className="p-4">
                             <Typography
                               variant="small"
                               color="blue-gray"
-                              className="font-normal leading-none opacity-70"
+                              className="font-normal"
                             >
-                              {head}
+                              {semester_aktif}
                             </Typography>
-                          </th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {ProgIrs.map(
-                        ({ Semester, SKS, File_Scan, Status }, index) => (
-                          <tr
-                            key={Semester}
-                            className="even:bg-blue-gray-50/50"
-                          >
-                            <td className="p-4">
-                              <Typography
-                                variant="small"
-                                color="blue-gray"
-                                className="font-normal"
-                              >
-                                {Semester}
-                              </Typography>
-                            </td>
-                            <td className="p-4">
-                              <Typography
-                                variant="small"
-                                color="blue-gray"
-                                className="font-normal"
-                              >
-                                {SKS}
-                              </Typography>
-                            </td>
-                            <td className="p-4">
-                              {/* <Typography
-                                variant="small"
-                                color="blue-gray"
-                                className="font-normal"
-                              >
-                                {File_Scan}
-                              </Typography> */}
-                  
-                                <Button
-                                  variant="text"
-                                  color="blue"
+                          </td>
+                          <td className="p-4">
+                            <Typography
+                              variant="small"
+                              color="blue-gray"
+                              className="font-normal"
+                            >
+                              {sks}
+                            </Typography>
+                          </td>
+                          <td className="p-4">
+                            <Button
+                              variant="text"
+                              color="blue"
+                              size="sm"
+                              onClick={() => {
+                                // Add your button click functionality here
+                              }}
+                            >
+                              Lihat File
+                            </Button>
+                          </td>
+                          <td className="p-4">
+                            <div className="flex gap-2 justify-center">
+                              <Tooltip content="Edit">
+                                <IconButton
+                                  color="blue-gray"
                                   size="sm"
                                   onClick={() => {
-                                    // Add your button click functionality here
+                                    // Add your edit functionality here
                                   }}
                                 >
-                                  Lihat File
-                                </Button>
-
-                            </td>
-                            <td className="p-4">
-                              <div className="flex gap-2 justify-center">
-                                {/* Replace Edit text with Edit icon */}
-                                <Tooltip content="Edit">
-                                  <IconButton
-                                    color="blue-gray"
-                                    size="sm"
-                                    onClick={() => {
-                                      // Add your edit functionality here
-                                    }}
-                                  >
-                                    <Pencil size={16} />
-                                  </IconButton>
-                                </Tooltip>
-
-                                {/* Replace Hapus text with Trash icon */}
-                                <Tooltip content="Hapus">
-                                  <IconButton
-                                    color="blue-gray"
-                                    size="sm"
-                                    onClick={() => {
-                                      // Add your delete functionality here
-                                    }}
-                                  >
-                                    <Trash size={16} />
-                                  </IconButton>
-                                </Tooltip>
-                              </div>
-                            </td>
-                            <td className="">
-                              <div className="w-max">
-                                <Chip
+                                  <Pencil size={16} />
+                                </IconButton>
+                              </Tooltip>
+                              <Tooltip content="Hapus">
+                                <IconButton
+                                  color="blue-gray"
                                   size="sm"
-                                  variant="ghost"
-                                  value={Status}
-                                  color={
-                                    Status === "Disetujui"
-                                      ? "green"
-                                      : Status === "Belum Disetujui"
-                                      ? "amber"
-                                      : "red"
-                                  }
-                                  className="text-center"
-                                />
-                              </div>
-                            </td>
-                          </tr>
-                        )
-                      )}
-                    </tbody>
-                  </table>
-                </Card>
+                                  onClick={() => {
+                                    // Add your delete functionality here
+                                  }}
+                                >
+                                  <Trash size={16} />
+                                </IconButton>
+                              </Tooltip>
+                            </div>
+                          </td>
+                          <td className="">
+                            <div className="w-max">
+                              <Chip
+                                size="sm"
+                                variant="ghost"
+                                value={status_konfirmasi}
+                                color={
+                                  status_konfirmasi === "Disetujui"
+                                    ? "green"
+                                    : status_konfirmasi === "Belum Disetujui"
+                                    ? "amber"
+                                    : "red"
+                                }
+                                className="text-center"
+                              />
+                            </div>
+                          </td>
+                        </tr>
+                      )
+                    )}
+                  </tbody>
+                </table>
               </div>
             </Card>
           </div>
+
+          {/* end */}
         </div>
       </div>
     </EmptyLayout>
