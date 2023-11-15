@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable react-hooks/rules-of-hooks */
+import React, {useState} from "react";
 import { EmptyLayout } from "@/components/layout";
 import Sidebar from "@/components/sidebar";
 import { Bell } from "tabler-icons-react";
@@ -16,7 +17,7 @@ import { getCookie } from "cookies-next";
 
 const token = getCookie("accessToken");
 
-export default function DataDoswal() {
+export default function generateAkun() {
   const axios = require('axios').default;
   const fetcherWithToken = async (url : any, headers: any) =>
     await fetch(url, {method: "GET", headers}).then((res : any) => res.json());
