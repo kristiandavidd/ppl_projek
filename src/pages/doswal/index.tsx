@@ -2,11 +2,12 @@ import React from 'react'
 import Sidebar from '@/components/sidebar';
 import { EmptyLayout } from '@/components/layout';
 import TopProfile from '@/components/top_profile';
-import ProfileContainer from '@/components/profileContainer';
 import { profileData } from '@/config/profile_config';
 import { profileDataMerge } from '@/config/profile_data_merge';
 import { Bell } from 'tabler-icons-react';
 import BottomProfile from '@/components/bottom_profile';
+import ProfileContainer from "@/components/profileContainer";
+
 
 export default function Home() {
     const userData = {
@@ -25,10 +26,11 @@ export default function Home() {
                     </div>
                     <div className='relative top-[-50px]'>
                         <TopProfile data={userData}/>
-                        <div className='flex gap-4'>
+                        {/* <div className='flex gap-4'>
                             <ProfileContainer data={...profileData.leftDoswal} />
                             <ProfileContainer data={...profileData.rightDoswal} />
-                        </div>
+                        </div> */}
+                        <ProfileContainer data={profileDataMerge} role={userData.role} />
                         <BottomProfile data={profileDataMerge} role={userData.role}/>
                     </div>
                 </div>

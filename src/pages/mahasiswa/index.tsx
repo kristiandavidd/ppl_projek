@@ -4,7 +4,6 @@ import Sidebar from "@/components/sidebar";
 import { EmptyLayout } from "@/components/layout";
 import { Bell } from "tabler-icons-react";
 import TopProfile from "@/components/top_profile";
-import ProfileContainer from "@/components/profileContainer";
 import { profileData } from "@/config/profile_config";
 import BottomProfile from "@/components/bottom_profile";
 import { profileDataMerge } from "@/config/profile_data_merge";
@@ -12,6 +11,7 @@ import useSWR from "swr";
 import { useEffect, useState } from "react";
 import { getCookie, setCookie } from "cookies-next";
 import axios from "axios";
+import ProfileContainer from "@/components/profileContainer";
 
 export default function Home() {
   const [img, setImg] = useState(null); // null ganti dengan file jpg
@@ -66,10 +66,7 @@ export default function Home() {
           </div>
           <div className="relative top-[-50px]">
             <TopProfile data={userData} />
-            <div className="flex gap-4">
-              <ProfileContainer data={...profileData.leftMhs} />
-              <ProfileContainer data={...profileData.rightMhs} />
-            </div>
+            <ProfileContainer data={profileDataMerge} role={userData.role} />
             <BottomProfile data={profileDataMerge} role={userData.role} />
           </div>
         </div>
