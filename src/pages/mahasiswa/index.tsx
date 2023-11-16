@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { getCookie, setCookie } from "cookies-next";
 import axios from "axios";
 import ProfileContainer from "@/components/profileContainer";
+import router from "next/router";
 
 export default function Home() {
   const [img, setImg] = useState(null); // null ganti dengan file jpg
@@ -37,7 +38,12 @@ export default function Home() {
   // };
 
   useEffect(() => {
-    if (dataMhs) {
+    if (!dataMhs) {
+      // Redirect to /mahasiswa/isiDataAwal if dataMhs is empty or undefined
+      // router.push('/mahasiswa/isiDataAwal');
+      return;
+    }
+    else (dataMhs: any) => {
       // if (dataMhs.kodeKab) {
       //   const provCode = dataMhs.kodeKab.substring(0, 2);
       //   setProvinsi(provCode);
@@ -48,6 +54,20 @@ export default function Home() {
       setPhone(dataMhs.phone);
     }
   }, [dataMhs]);
+
+  const data = {
+      // Email: dataMhs.email,
+      // Angkatan: dataMhs.email,
+      // Semester: dataMhs.email,
+      // Jalur Masuk: dataMhs.email,
+      // Status: dataMhs.email,
+      // Dosen Wali: dataMhs.email,
+      // Nomer Telepon: dataMhs.email,
+      // Alamat: dataMhs.email,
+      // Kab/kota: dataMhs.email,
+      // Provinsi: dataMhs.email,
+
+  }
 
   const userData = {
     role: "mhs",
