@@ -4,7 +4,6 @@ import { EmptyLayout } from "@/components/layout";
 import Sidebar from "@/components/sidebar";
 import { Bell } from "tabler-icons-react";
 import { ProgMhs } from "@/config/mhs_progres";
-import { Link } from "react-router-dom";
 import { Pencil, Trash } from "tabler-icons-react";
 import {
   Card,

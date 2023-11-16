@@ -60,7 +60,7 @@ export default function Validasi() {
                         count={Skripsi.length}
                     />
                     </div>
-                    <div className='bg-blue-50 shadow-lg shadow-blue-500/20 rounded-lg p-4'>
+                    <div className='shadow-lg shadow-blue-500/20 rounded-lg p-4'>
                         <div className='flex'>
                             <div className='flex w-5/6'>
                                 <Input

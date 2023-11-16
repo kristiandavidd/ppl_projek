@@ -31,26 +31,26 @@ export default function IsiDataAwal() {
   const [selectedCity, setSelectedCity] = useState("");
 
   const handleProvinceChange = (e : any) => {
-      const provinceId = e;
-      setSelectedProvince(provinceId);
-      setSelectedCity(""); // Reset pilihan kabupaten/kota
-      fetchCities(provinceId);
-    };  
+    const provinceId = e;
+    setSelectedProvince(provinceId);
+    setSelectedCity(""); // Reset pilihan kabupaten/kota
+    fetchCities(provinceId);
+  };  
     
-    useEffect(() => {
-      fetch(`${process.env.BACKEND_API}/api/provinsi`)
-        .then((response) => response.json())
-        .then((data) => setProvinces(data));
-    }, []);
+  useEffect(() => {
+    fetch(`${process.env.BACKEND_API}/api/provinsi`)
+      .then((response) => response.json())
+      .then((data) => setProvinces(data));
+  }, []);
 
-    const fetchCities = (provinceId: React.ChangeEvent<HTMLSelectElement>) => {
-      fetch(`${process.env.BACKEND_API}/api/kabupaten/${provinceId}`)
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data); // Tambahkan log ini
-          setCities(data);
-        });
-    };    
+  const fetchCities = (provinceId: React.ChangeEvent<HTMLSelectElement>) => {
+    fetch(`${process.env.BACKEND_API}/api/kabupaten/${provinceId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data); // Tambahkan log ini
+        setCities(data);
+      });
+  };    
   
   
   const triggers = {
