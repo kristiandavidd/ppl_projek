@@ -76,10 +76,19 @@ export default function IsiDataAwal() {
   };
   const handleImageChange = (event: any) => {
     const file = event.target.files[0];
+
     if (file) {
-      setImage(event.target.files[0]);
+      const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
+
+      // Check if the selected file type is allowed
+      if (allowedTypes.includes(file.type)) {
+        setImage(file);
+      } else {
+        // Show an error message or handle the restriction as per your requirements
+        alert("Invalid file type. Please upload a jpg/png/jpeg file.");
+      }
     } else {
-      // Menetapkan nilai image kembali ke nilai sebelumnya jika tidak ada gambar yang dipilih
+      // Set the image back to null if no file is selected
       if (!image) {
         setImage(null);
       }
