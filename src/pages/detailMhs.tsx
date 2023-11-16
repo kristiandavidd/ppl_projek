@@ -10,6 +10,10 @@ import {
   Typography,
   Button,
 } from "@material-tailwind/react";
+import BlueBoxModal from "@/components/blueBoxModal";
+import GreenBoxModal from "@/components/greenBoxModal";
+import YellowBoxModal from "@/components/yellowBoxModal";
+import { ProgIrs, ProgKhs, ProgPkl, ProgSkripsi } from "@/config/progres_irs";
 
 const data = {
   name: "Yusuf Febrian",
@@ -18,7 +22,14 @@ const data = {
   doswal: "Satriyo Adhy, S.Si, M.T",
 };
 
+
+
 export default function DetailMhs() {
+  const [isBlueModalOpen, setBlueModalOpen] = React.useState(false);
+  const [isGreenModalOpen, setGreenModalOpen] = React.useState(false);
+  const [isYellowModalOpen, setYellowModalOpen] = React.useState(false);
+
+
   const userData = {
     role: "doswal",
     name: "Andi Kurnia",
@@ -26,9 +37,20 @@ export default function DetailMhs() {
   };
 
   const handleBoxClick = (index: any) => {
-    // Handle box click action, e.g., navigate to a specific page
-    console.log(`Box ${index + 1} clicked`);
+    const boxColor = determineBoxColor(index);
+  
+    if (boxColor.includes("bg-blue-500")) {
+      setBlueModalOpen(true);
+    } else if (boxColor.includes("bg-yellow-500")) {
+      setYellowModalOpen(true);
+    } else if (boxColor.includes("bg-green-500")) {
+      setGreenModalOpen(true);
+    } else if (boxColor.includes("bg-red-500")) {
+      // Tampilkan pesan kesalahan atau abaikan klik pada box merah
+      console.log("Box merah tidak dapat diklik");
+    }
   };
+  
 
   const renderBoxes = () => {
     const totalBoxes = 14;
@@ -36,27 +58,49 @@ export default function DetailMhs() {
     const rows = Math.ceil(totalBoxes / boxesPerRow);
 
     const boxes = [];
+    var isGreen = false;
 
     for (let row = 0; row < rows; row++) {
       const rowBoxes = [];
       for (let col = 0; col < boxesPerRow; col++) {
         const boxIndex = row * boxesPerRow + col;
-        const boxColor = determineBoxColor(boxIndex); // You need to implement determineBoxColor based on your criteria
-
-        if (boxIndex < totalBoxes) {
-          rowBoxes.push(
-            <div
+        if (!isGreen) {
+          const boxColor = determineBoxColor(boxIndex); // You need to implement determineBoxColor based on your criteria
+          if (boxColor === "bg-green-500") {
+            isGreen = true;
+          }
+          if (boxIndex < totalBoxes) {
+            rowBoxes.push(
+              <div
               key={boxIndex}
-              className={`w-20 h-20 m-2 cursor-pointer flex items-center justify-center rounded-lg ${boxColor}`}
+              className={`w-20 h-20 m-2 cursor-pointer flex items-center justify-center rounded-lg ${boxColor} hover:shadow-md`}
               onClick={() => handleBoxClick(boxIndex)}
-            >
+              >
               <Typography className="text-white text-lg">
                 {boxIndex + 1}
               </Typography>
             </div>
           );
+          console.log(isGreen)
         }
+      } else{
+        const boxColor = "bg-red-500"; // You need to implement determineBoxColor based on your criteria
+        if (boxIndex < totalBoxes) {
+          rowBoxes.push(
+            <div
+            key={boxIndex}
+            className={`w-20 h-20 m-2 cursor-pointer flex items-center justify-center rounded-lg ${boxColor} cursor-default`}
+            // onClick={() => handleBoxClick(boxIndex)}
+            >
+            <Typography className="text-white text-lg">
+              {boxIndex + 1}
+            </Typography>
+          </div>
+        );
       }
+      console.log(isGreen)
+      }
+    }
       boxes.push(
         <div key={row} className="flex justify-center">
           {rowBoxes}
@@ -68,18 +112,48 @@ export default function DetailMhs() {
   };
 
   const determineBoxColor = (index: number) => {
-    // Implement logic to determine box color based on your criteria
-    // For example, you can return "bg-red-500", "bg-blue-500", "bg-green-500", etc.
-    if (index === 0 || index === 1 || index === 2 || index === 3 || index === 4 || index === 6) {
-      return "bg-blue-500";
-    } else if (index === 5) {
-      return "bg-yellow-500";
-    } else if (index === 7) {
-      return "bg-green-500";
-    } else {
-      return "bg-red-500";
-    }
+    const semester_aktif = determineSemesterAktif(index).toString(); // Mengonversi ke string
+  
+    // Temukan IRS terkait berdasarkan semester aktif
+    const irs = ProgIrs.find((prog) => prog.semester_aktif === semester_aktif);
+    const khs = ProgIrs.find((prog) => prog.semester_aktif === semester_aktif);
+    const pkl = ProgIrs.find((prog) => prog.semester_aktif === semester_aktif);
+    const skripsi = ProgIrs.find((prog) => prog.semester_aktif === semester_aktif);
+  
+    // Jika IRS ditemukan dan status_konfirmasi adalah "Disetujui"
+   
+      const irsCompleted = ProgIrs.some((prog) => prog.semester_aktif === semester_aktif);
+      const khsCompleted = ProgKhs.some((prog) => prog.semester_aktif === semester_aktif);
+      const pklCompleted = ProgPkl.some((prog) => prog.semester === semester_aktif);
+      const skripsiCompleted = ProgSkripsi.some((prog) => prog.semester === semester_aktif);
+  
+      const isGreenBox = irsCompleted && khsCompleted && skripsiCompleted;
+      const isYellowBox = irsCompleted && khsCompleted && pklCompleted;
+  
+      if (isGreenBox) {
+        return "bg-green-500"; // Semua sudah selesai
+      } else if (isYellowBox) {
+        return "bg-yellow-500"; // IRS, KHS, dan PKL sudah selesai
+      } else if (irsCompleted && khsCompleted) {
+        return "bg-blue-500"; // IRS dan KHS sudah selesai
+      } else{
+        return "bg-red-500";
+      }
+  
+    // Jika tidak memenuhi kondisi di atas, kembalikan warna default
   };
+  
+  
+  
+  // Fungsi determineSemesterAktif tetap sama seperti sebelumnya
+  const determineSemesterAktif = (index: number): string => {
+    const totalSemesters = ProgIrs.length;
+    const semesterIndex = index % totalSemesters;
+    // console.log(se,)
+    console.log(ProgIrs[semesterIndex].semester_aktif);
+    return ProgIrs[semesterIndex].semester_aktif;
+  };
+  
   
 
   return (
@@ -172,6 +246,18 @@ export default function DetailMhs() {
             </Card>
           </div>
         </div>
+          {/* Modal component */}
+          {isBlueModalOpen && (
+          <BlueBoxModal onClose={() => setBlueModalOpen(false)} isvisible={isBlueModalOpen} dataIrs={{}} dataKhs={{}}/>
+        )}
+          {/* Modal component */}
+          {isGreenModalOpen && (
+          <GreenBoxModal onClose={() => setGreenModalOpen(false)} isvisible={isGreenModalOpen} dataIrs={{}} dataKhs={{}} dataPkl={{}} dataSkripsi={{}}/>
+        )}
+          {/* Modal component */}
+          {isYellowModalOpen && (
+          <YellowBoxModal onClose={() => setYellowModalOpen(false)} isvisible={isYellowModalOpen} dataIrs={{}} dataKhs={{}}/>
+        )}
       </div>
     </EmptyLayout>
   );

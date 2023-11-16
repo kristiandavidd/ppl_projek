@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@heroicons/react": "^2.0.18",
     "@material-tailwind/react": "^2.1.4",
     "@types/axios": "^0.14.0",
     "@types/next-auth": "^3.15.0",
