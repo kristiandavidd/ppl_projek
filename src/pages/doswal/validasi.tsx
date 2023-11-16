@@ -3,7 +3,7 @@ import { EmptyLayout } from '@/components/layout'
 import Sidebar from '@/components/sidebar'
 import {Bell} from 'tabler-icons-react'
 import { Input, Select, Option } from '@material-tailwind/react';
-import TabelMahasiswa from '@/components/tabel_mhs';
+import TabelValidasi from '@/components/tabelValidasi';
 import ButtonValidasi from '../../components/button_validasi';
 import { IRS, KHS, PKL, Skripsi } from '../../config/Data_IRS_KHS_PKL_Skripsi';
 
@@ -78,7 +78,7 @@ export default function Validasi() {
                             </div>
                         </div>
                         <div className='mt-4'>
-                            {selectedData && <TabelMahasiswa mhsValidasi={selectedData}/>}
+                            {selectedData && <TabelValidasi mhsValidasi={selectedData}/>}
                         </div>
                     </div>
                 </div>

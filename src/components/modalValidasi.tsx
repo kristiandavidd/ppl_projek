@@ -1,4 +1,4 @@
-import { Select, Option } from "@material-tailwind/react";
+import { Select, Option, Input } from "@material-tailwind/react";
 import React, { ChangeEvent, useState } from "react";
 
 type MahasiswaData = {
@@ -55,16 +55,15 @@ const ModalValidasi: React.FC<ModalValidasiProps> = ({ isvisible, onClose, data 
             <div className="w-1/2 pl-4">
               <form>
                 {Object.keys(data).map((key) => {
-                  if (!["NIM", "Nama", "Semester", "Angkatan", "Status"].includes(key)) {
+                  if (!["NIM", "Nama", "Semester", "Angkatan", "Status", "Nilai"].includes(key)) {
                     return (
-                      <div key={key}>
-                        <label className="block text-sm font-bold text-gray-700">{key}</label>
-                        <input
+                      <div key={key} className="mt-5 w-full" >
+                        <Input
                           type="text"
+                          label={key}
                           name={key}
                           value={editedData[key] || data[key]}
                           onChange={handleInputChange}
-                          className="border-2 mb-3 p-2 w-full rounded-lg"
                           disabled={(data.Status !== "Lulus")?(key === "Nilai" || key === "Tanggal_Studi" || key === "Tanggal_Lulus" || key === "Lama_Studi") : false}
                         />
                       </div>
@@ -73,17 +72,18 @@ const ModalValidasi: React.FC<ModalValidasiProps> = ({ isvisible, onClose, data 
                   if (["Status"].includes(key)){
                     return (
                       <div key={key} className="mb-3">
-                        <label className="block text-sm font-bold text-gray-700">{key}</label>
                         <Select 
                           variant="outlined" 
-                          label="" 
-                          value={data.Status} 
-                          name="Status"
+                          label="Nilai" 
+                          value={data.Nilai} 
+                          name="Nilai"
                           onChange={(e) => handleStatusChange(e)}
                           >
-                          <Option value="Belum Ambil">Belum Ambil</Option>
-                          <Option value="Sedang Ambil">Sedang Ambil</Option>
-                          <Option value="Lulus">Lulus</Option>
+                          <Option value="A">A</Option>
+                          <Option value="B">B</Option>
+                          <Option value="C">C</Option>
+                          <Option value="D">D</Option>
+                          <Option value="E">E</Option>
                         </Select>
                       </div>
                     );

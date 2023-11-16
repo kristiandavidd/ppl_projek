@@ -10,11 +10,11 @@ interface MahasiswaData {
   [key: string]: string;
 }
 
-interface TabelMahasiswaProps {
+interface TabelValidasiProps {
   mhsValidasi: MahasiswaData[];
 }
 
-const TabelMahasiswa = ({ mhsValidasi }: TabelMahasiswaProps) => {
+const TabelValidasi = ({ mhsValidasi }: TabelValidasiProps) => {
   const columns = Object.keys(mhsValidasi[0]).slice(0, 4);
   const [showModal, setShowModal] = useState(false);
   const [selectedData, setSelectedData] = useState<MahasiswaData>({
@@ -98,4 +98,4 @@ const TabelMahasiswa = ({ mhsValidasi }: TabelMahasiswaProps) => {
   );
 };
 
-export default TabelMahasiswa;
+export default TabelValidasi;
