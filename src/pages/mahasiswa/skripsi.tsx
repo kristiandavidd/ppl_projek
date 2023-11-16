@@ -21,7 +21,14 @@ import {
 } from "@material-tailwind/react";
 import UploadFile from "@/components/uploadFile";
 
-const TABLE_HEAD = ["Lama Studi (Semester)", "Nilai", "Tanggal Lulus/Sidang", "File Scan", "Action", ""];
+const TABLE_HEAD = [
+  "Lama Studi (Semester)",
+  "Nilai",
+  "Tanggal Lulus/Sidang",
+  "File Scan",
+  "Action",
+  "",
+];
 
 export default function Skripsi() {
   const userData = {
@@ -109,7 +116,7 @@ export default function Skripsi() {
             <Card className="mt-6 w-full">
               <CardBody>
                 <div className="mb-7">
-                <Input
+                  <Input
                     color="blue"
                     type="text"
                     value="Lulus"
@@ -139,7 +146,6 @@ export default function Skripsi() {
                     color="blue"
                     value={statusSkripsi !== "Lulus" ? "" : undefined}
                     onChange={(value) => setLamaStudi(value as any)}
-
                   >
                     <Option value="1">1</Option>
                     <Option value="2">2</Option>
@@ -217,7 +223,10 @@ export default function Skripsi() {
                   </thead>
                   <tbody>
                     {ProgSkripsi.map(
-                      ({ semester, nilai, file, tanggal,status_konfirmasi }, index) => (
+                      (
+                        { semester, nilai, file, tanggal, status_konfirmasi },
+                        index
+                      ) => (
                         <tr key={semester} className="even:bg-blue-gray-50/50">
                           <td className="p-4">
                             <Typography
@@ -259,30 +268,53 @@ export default function Skripsi() {
                             </Button>
                           </td>
                           <td className="p-4">
-                            <div className="flex gap-2 justify-center">
-                              <Tooltip content="Edit">
-                                <IconButton
-                                  color="blue-gray"
-                                  size="sm"
-                                  onClick={() => {
-                                    // Add your edit functionality here
-                                  }}
-                                >
-                                  <Pencil size={16} />
-                                </IconButton>
-                              </Tooltip>
-                              <Tooltip content="Hapus">
-                                <IconButton
-                                  color="blue-gray"
-                                  size="sm"
-                                  onClick={() => {
-                                    // Add your delete functionality here
-                                  }}
-                                >
-                                  <Trash size={16} />
-                                </IconButton>
-                              </Tooltip>
-                            </div>
+                            {status_konfirmasi === "Disetujui" ? (
+                              <div className="flex gap-2 justify-center">
+                                <Tooltip content="Edit">
+                                  <IconButton
+                                    color="blue-gray"
+                                    size="sm"
+                                    disabled
+                                  >
+                                    <Pencil size={16} />
+                                  </IconButton>
+                                </Tooltip>
+                                <Tooltip content="Hapus">
+                                  <IconButton
+                                    color="blue-gray"
+                                    size="sm"
+                                    disabled
+                                  >
+                                    <Trash size={16} />
+                                  </IconButton>
+                                </Tooltip>
+                              </div>
+                            ) : (
+                              <div className="flex gap-2 justify-center">
+                                <Tooltip content="Edit">
+                                  <IconButton
+                                    color="blue-gray"
+                                    size="sm"
+                                    onClick={() => {
+                                      // Add your edit functionality here
+                                    }}
+                                  >
+                                    <Pencil size={16} />
+                                  </IconButton>
+                                </Tooltip>
+                                <Tooltip content="Hapus">
+                                  <IconButton
+                                    color="blue-gray"
+                                    size="sm"
+                                    onClick={() => {
+                                      // Add your delete functionality here
+                                    }}
+                                  >
+                                    <Trash size={16} />
+                                  </IconButton>
+                                </Tooltip>
+                              </div>
+                            )}
                           </td>
                           <td className="">
                             <div className="w-max">

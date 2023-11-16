@@ -214,8 +214,14 @@ export default function Irs() {
                   </thead>
                   <tbody>
                     {ProgIrs.map(
-                      ({ semester_aktif, sks, file, status_konfirmasi }, index) => (
-                        <tr key={semester_aktif} className="even:bg-blue-gray-50/50">
+                      (
+                        { semester_aktif, sks, file, status_konfirmasi },
+                        index
+                      ) => (
+                        <tr
+                          key={semester_aktif}
+                          className="even:bg-blue-gray-50/50"
+                        >
                           <td className="p-4">
                             <Typography
                               variant="small"
@@ -247,31 +253,55 @@ export default function Irs() {
                             </Button>
                           </td>
                           <td className="p-4">
-                            <div className="flex gap-2 justify-center">
-                              <Tooltip content="Edit">
-                                <IconButton
-                                  color="blue-gray"
-                                  size="sm"
-                                  onClick={() => {
-                                    // Add your edit functionality here
-                                  }}
-                                >
-                                  <Pencil size={16} />
-                                </IconButton>
-                              </Tooltip>
-                              <Tooltip content="Hapus">
-                                <IconButton
-                                  color="blue-gray"
-                                  size="sm"
-                                  onClick={() => {
-                                    // Add your delete functionality here
-                                  }}
-                                >
-                                  <Trash size={16} />
-                                </IconButton>
-                              </Tooltip>
-                            </div>
+                            {status_konfirmasi === "Disetujui" ? (
+                              <div className="flex gap-2 justify-center">
+                                <Tooltip content="Edit">
+                                  <IconButton
+                                    color="blue-gray"
+                                    size="sm"
+                                    disabled
+                                  >
+                                    <Pencil size={16} />
+                                  </IconButton>
+                                </Tooltip>
+                                <Tooltip content="Hapus">
+                                  <IconButton
+                                    color="blue-gray"
+                                    size="sm"
+                                    disabled
+                                  >
+                                    <Trash size={16} />
+                                  </IconButton>
+                                </Tooltip>
+                              </div>
+                            ) : (
+                              <div className="flex gap-2 justify-center">
+                                <Tooltip content="Edit">
+                                  <IconButton
+                                    color="blue-gray"
+                                    size="sm"
+                                    onClick={() => {
+                                      // Add your edit functionality here
+                                    }}
+                                  >
+                                    <Pencil size={16} />
+                                  </IconButton>
+                                </Tooltip>
+                                <Tooltip content="Hapus">
+                                  <IconButton
+                                    color="blue-gray"
+                                    size="sm"
+                                    onClick={() => {
+                                      // Add your delete functionality here
+                                    }}
+                                  >
+                                    <Trash size={16} />
+                                  </IconButton>
+                                </Tooltip>
+                              </div>
+                            )}
                           </td>
+
                           <td className="">
                             <div className="w-max">
                               <Chip

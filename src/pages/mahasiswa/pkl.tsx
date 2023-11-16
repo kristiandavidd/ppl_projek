@@ -110,7 +110,7 @@ export default function Pkl() {
             <Card className="mt-6 w-full">
               <CardBody>
                 <div className="mb-7">
-                <Select
+                  <Select
                     label="Semester"
                     color="blue"
                     onChange={handleSemesterChange}
@@ -123,7 +123,7 @@ export default function Pkl() {
                   </Select>
                 </div>
                 <div className="mb-7">
-                <Input
+                  <Input
                     color="blue"
                     type="text"
                     value="Lulus"
@@ -152,21 +152,21 @@ export default function Pkl() {
                   </label>
                 </div>
                 <UploadFile
-              handleFileUpload={handleFileUpload}
-              handleDrop={handleDrop}
-              handleDragOver={handleDragOver}
-              uploadedFileName={uploadedFileName}
-              type={".pdf"}
-              maxFileSize={"50 MB"}
-            />
+                  handleFileUpload={handleFileUpload}
+                  handleDrop={handleDrop}
+                  handleDragOver={handleDragOver}
+                  uploadedFileName={uploadedFileName}
+                  type={".pdf"}
+                  maxFileSize={"50 MB"}
+                />
               </CardBody>
               <CardFooter className="pt-0 flex justify-end">
                 <Button color="blue">Simpan Data</Button>
               </CardFooter>
             </Card>
           </div>
-           {/* Progress Skripsi MHS */}
-           <div className="flex w-full justify-between mt-10">
+          {/* Progress Skripsi MHS */}
+          <div className="flex w-full justify-between mt-10">
             <h2 className="font-semibold text-lg">Progres PKL</h2>
           </div>
           <p className="text-sm text-gray-500">
@@ -229,31 +229,55 @@ export default function Pkl() {
                             </Button>
                           </td>
                           <td className="p-4">
-                            <div className="flex gap-2 justify-center">
-                              <Tooltip content="Edit">
-                                <IconButton
-                                  color="blue-gray"
-                                  size="sm"
-                                  onClick={() => {
-                                    // Add your edit functionality here
-                                  }}
-                                >
-                                  <Pencil size={16} />
-                                </IconButton>
-                              </Tooltip>
-                              <Tooltip content="Hapus">
-                                <IconButton
-                                  color="blue-gray"
-                                  size="sm"
-                                  onClick={() => {
-                                    // Add your delete functionality here
-                                  }}
-                                >
-                                  <Trash size={16} />
-                                </IconButton>
-                              </Tooltip>
-                            </div>
+                            {status_konfirmasi === "Disetujui" ? (
+                              <div className="flex gap-2 justify-center">
+                                <Tooltip content="Edit">
+                                  <IconButton
+                                    color="blue-gray"
+                                    size="sm"
+                                    disabled
+                                  >
+                                    <Pencil size={16} />
+                                  </IconButton>
+                                </Tooltip>
+                                <Tooltip content="Hapus">
+                                  <IconButton
+                                    color="blue-gray"
+                                    size="sm"
+                                    disabled
+                                  >
+                                    <Trash size={16} />
+                                  </IconButton>
+                                </Tooltip>
+                              </div>
+                            ) : (
+                              <div className="flex gap-2 justify-center">
+                                <Tooltip content="Edit">
+                                  <IconButton
+                                    color="blue-gray"
+                                    size="sm"
+                                    onClick={() => {
+                                      // Add your edit functionality here
+                                    }}
+                                  >
+                                    <Pencil size={16} />
+                                  </IconButton>
+                                </Tooltip>
+                                <Tooltip content="Hapus">
+                                  <IconButton
+                                    color="blue-gray"
+                                    size="sm"
+                                    onClick={() => {
+                                      // Add your delete functionality here
+                                    }}
+                                  >
+                                    <Trash size={16} />
+                                  </IconButton>
+                                </Tooltip>
+                              </div>
+                            )}
                           </td>
+
                           <td className="">
                             <div className="w-max">
                               <Chip
